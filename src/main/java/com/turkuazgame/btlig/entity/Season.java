@@ -59,10 +59,6 @@ public class Season implements IEntity {
         this.startDate = request.getStartDate();
         this.endDate = request.getEndDate();
 
-//        User user = new User();
-//        user.setUserId(request.getUserId());
-//        this.user = user;
-
         this.baseInfo = new BaseInfo();
         this.baseInfo.setFromRequest(request);
     }

@@ -1,15 +1,10 @@
 package com.turkuazgame.btlig.response;
 
-import com.turkuazgame.btlig.entity.Competitor;
-import com.turkuazgame.btlig.entity.IEntity;
 import com.turkuazgame.btlig.entity.Season;
-import com.turkuazgame.btlig.entity.SeasonType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 import java.sql.Date;
-
 
 @Data
 @NoArgsConstructor

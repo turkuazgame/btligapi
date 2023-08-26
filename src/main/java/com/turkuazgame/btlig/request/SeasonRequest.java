@@ -1,6 +1,5 @@
 package com.turkuazgame.btlig.request;
 
-import com.turkuazgame.btlig.entity.SeasonType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

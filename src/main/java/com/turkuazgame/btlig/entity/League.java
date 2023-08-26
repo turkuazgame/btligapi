@@ -35,6 +35,13 @@ public class League implements IEntity {
     @Embedded
     private BaseInfo baseInfo;
 
+    public int getTeamListSize() {
+        if(this.teams!=null)
+            return this.teams.size();
+        else
+            return 0;
+    }
+
     @Override
     public void setFromOther(IEntity other) {
         League newEntity = (League) other;
