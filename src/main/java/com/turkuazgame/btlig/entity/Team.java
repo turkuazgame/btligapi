@@ -1,6 +1,9 @@
 package com.turkuazgame.btlig.entity;
 
 import com.turkuazgame.btlig.request.IRequest;
+import com.turkuazgame.btlig.request.TeamRequest;
+import com.turkuazgame.btlig.request.SeasonRequest;
+import com.turkuazgame.btlig.request.TeamRequest;
 import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +32,13 @@ public class Team implements IEntity {
     @Embedded
     private BaseInfo baseInfo;
 
+    public Long getLeagueId() {
+        if(this.league!=null)
+            return league.getLeagueId();
+        else
+            return 0L;
+    }
+
     @Override
     public void setFromOther(IEntity other) {
         Team newEntity = (Team) other;
@@ -41,7 +51,12 @@ public class Team implements IEntity {
 
     @Override
     public void setFromRequest(IRequest request) {
-
+        TeamRequest req = (TeamRequest) request;
+        this.teamId = req.getTeamId();
+        this.teamName = req.getTeamName();
+        this.teamNation = Nation.valueOf(req.getTeamNation());
+        this.league = req.getLeague();
+        this.baseInfo.setFromRequest(req);
     }
 
 }

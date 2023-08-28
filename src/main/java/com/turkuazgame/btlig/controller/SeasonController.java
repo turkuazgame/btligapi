@@ -49,7 +49,7 @@ public class SeasonController {
     }
 
     @PatchMapping("/{seasonId}")
-    public ResponseEntity<?> updateSeason(@PathVariable Long seasonId, @RequestBody Map<Object, Object> fields) {
+    public ResponseEntity<?> mergeSeason(@PathVariable Long seasonId, @RequestBody Map<Object, Object> fields) {
         SeasonResponse response = seasonService.mergeSeason(seasonId, fields);
         return ResponseEntity.ok(response);
     }

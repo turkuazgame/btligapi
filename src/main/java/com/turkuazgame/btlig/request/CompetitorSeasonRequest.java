@@ -16,4 +16,5 @@ public class CompetitorSeasonRequest extends BaseRequest implements IRequest {
     public void setId(Long id) {
         this.competitorSeasonId = id;
     }
+
 }

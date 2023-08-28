@@ -15,4 +15,5 @@ public class CompetitorRequest extends BaseRequest implements IRequest {
     public void setId(Long id) {
         this.competitorId = id;
     }
+
 }

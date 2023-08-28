@@ -1,6 +1,7 @@
 package com.turkuazgame.btlig.entity;
 
 import com.turkuazgame.btlig.request.IRequest;
+import com.turkuazgame.btlig.request.RateTypeRequest;
 import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,7 +37,11 @@ public class RateType implements IEntity {
 
     @Override
     public void setFromRequest(IRequest request) {
-
+        RateTypeRequest req = (RateTypeRequest) request;
+        this.rateTypeId = req.getRateTypeId();
+        this.rateTypeCode = req.getRateTypeCode();
+        this.rateTypeName = req.getRateTypeName();
+        this.baseInfo.setFromRequest(req);
     }
 
 }

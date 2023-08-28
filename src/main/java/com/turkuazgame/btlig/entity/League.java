@@ -1,6 +1,7 @@
 package com.turkuazgame.btlig.entity;
 
 import com.turkuazgame.btlig.request.IRequest;
+import com.turkuazgame.btlig.request.LeagueRequest;
 import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.*;
@@ -55,7 +56,12 @@ public class League implements IEntity {
 
     @Override
     public void setFromRequest(IRequest request) {
-
+        LeagueRequest req = (LeagueRequest) request;
+        this.leagueId = req.getLeagueId();
+        this.leagueCode = req.getLeagueCode();
+        this.leagueName = req.getLeagueName();
+        this.leagueNation = Nation.valueOf(req.getLeagueNation());
+        this.baseInfo.setFromRequest(req);
     }
 
 }

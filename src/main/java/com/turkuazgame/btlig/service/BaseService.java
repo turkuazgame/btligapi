@@ -1,7 +1,6 @@
 package com.turkuazgame.btlig.service;
 
 import com.turkuazgame.btlig.entity.BaseInfo;
-import com.turkuazgame.btlig.entity.Competitor;
 import com.turkuazgame.btlig.entity.IEntity;
 import com.turkuazgame.btlig.request.IRequest;
 import com.turkuazgame.btlig.response.IResponse;
@@ -108,7 +107,7 @@ public class BaseService implements IService {
                     String key = (String) entry.getKey();
                     Object value = entry.getValue();
                     try {
-                        Field fieldOfEntity = ReflectionUtils.findField(Competitor.class, (String) key);
+                        Field fieldOfEntity = ReflectionUtils.findField(classOfEntity, (String) key);
                         if (fieldOfEntity != null) {
                             fieldOfEntity.setAccessible(true);
                             ReflectionUtils.setField(fieldOfEntity, foundEntity.get(), value);
