@@ -22,7 +22,7 @@ public class LeagueController {
     private LeagueService leagueService;
 
     @GetMapping
-    public ResponseEntity<?> getAllLeagues(){
+    public ResponseEntity<?> getLeagues(){
         List<LeagueResponse> responseList = leagueService.getAllLeagues();
         return ResponseEntity.ok(responseList);
     }

@@ -24,7 +24,7 @@ public class TeamController {
     private TeamService teamService;
 
     @GetMapping
-    public ResponseEntity<?> getAllTeams(@RequestParam @ExistsLeague Optional<Long> leagueId){
+    public ResponseEntity<?> getTeams(@RequestParam @ExistsLeague Optional<Long> leagueId){
         List<TeamResponse> responseList = teamService.getTeams(leagueId);
         return ResponseEntity.ok(responseList);
     }

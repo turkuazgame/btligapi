@@ -24,7 +24,7 @@ public class CompetitorController {
     private CompetitorService competitorService;
 
     @GetMapping
-    public ResponseEntity<?> getAllCompetitors(){
+    public ResponseEntity<?> getCompetitors(){
         List<CompetitorResponse> responseList = competitorService.getAllCompetitors();
         return ResponseEntity.ok(responseList);
     }

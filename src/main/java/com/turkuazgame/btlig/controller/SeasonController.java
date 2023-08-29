@@ -23,7 +23,7 @@ public class SeasonController {
     private SeasonService seasonService;
 
     @GetMapping
-    public ResponseEntity<?> getAllSeasons(){
+    public ResponseEntity<?> getSeasons(){
         List<SeasonResponse> responseList = seasonService.getAllSeasons();
         return ResponseEntity.ok(responseList);
     }

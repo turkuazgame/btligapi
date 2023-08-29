@@ -22,7 +22,7 @@ public class RateTypeController {
     private RateTypeService rateTypeService;
 
     @GetMapping
-    public ResponseEntity<?> getAllRateTypes(){
+    public ResponseEntity<?> getRateTypes(){
         List<RateTypeResponse> responseList = rateTypeService.getAllRateTypes();
         return ResponseEntity.ok(responseList);
     }

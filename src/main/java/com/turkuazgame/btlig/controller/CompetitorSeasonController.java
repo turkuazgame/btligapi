@@ -23,7 +23,7 @@ public class CompetitorSeasonController {
     private CompetitorSeasonService competitorSeasonService;
 
     @GetMapping
-    public List<CompetitorSeasonResponse> getAllCompetitorSeasons(@RequestParam @ExistsCompetitor Optional<Long> competitorId,
+    public List<CompetitorSeasonResponse> getCompetitorSeasons(@RequestParam @ExistsCompetitor Optional<Long> competitorId,
                                                                   @RequestParam @ExistsSeason Optional<Long> seasonId){
         return competitorSeasonService.getCompetitorSeasons(competitorId, seasonId);
     }
