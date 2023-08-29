@@ -1,13 +1,13 @@
 package com.turkuazgame.btlig.entity;
 
-import com.turkuazgame.btlig.request.CompetitorRequest;
 import com.turkuazgame.btlig.request.IRequest;
 import com.turkuazgame.btlig.request.SeasonRequest;
-import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,15 +52,19 @@ public class Season implements IEntity {
     }
 
     public Season(SeasonRequest request) {
-        this.seasonId = request.getSeasonId();
-        this.seasonCode = request.getSeasonCode();
-        this.seasonName = request.getSeasonName();
-        this.seasonType = SeasonType.valueOf(request.getSeasonType());
-        this.startDate = request.getStartDate();
-        this.endDate = request.getEndDate();
-
-        this.baseInfo = new BaseInfo();
-        this.baseInfo.setFromRequest(request);
+        try {
+            this.seasonId = request.getSeasonId();
+            this.seasonCode = request.getSeasonCode();
+            this.seasonName = request.getSeasonName();
+            this.seasonType = SeasonType.valueOf(request.getSeasonType());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            this.startDate = sdf.parse(request.getStartDate());
+            this.endDate = sdf.parse(request.getEndDate());
+            this.baseInfo = new BaseInfo();
+            this.baseInfo.setFromRequest(request);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -78,14 +82,19 @@ public class Season implements IEntity {
 
     @Override
     public void setFromRequest(IRequest request) {
-        SeasonRequest req = (SeasonRequest) request;
-        this.seasonId = req.getSeasonId();
-        this.seasonCode = req.getSeasonCode();
-        this.seasonName = req.getSeasonName();
-        this.seasonType = SeasonType.valueOf(req.getSeasonType());
-        this.startDate = req.getStartDate();
-        this.endDate = req.getEndDate();
-        this.baseInfo.setFromRequest(req);
+        try {
+            SeasonRequest req = (SeasonRequest) request;
+            this.seasonId = req.getSeasonId();
+            this.seasonCode = req.getSeasonCode();
+            this.seasonName = req.getSeasonName();
+            this.seasonType = SeasonType.valueOf(req.getSeasonType());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            this.startDate = sdf.parse(req.getStartDate());
+            this.endDate = sdf.parse(req.getEndDate());
+            this.baseInfo.setFromRequest(req);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }

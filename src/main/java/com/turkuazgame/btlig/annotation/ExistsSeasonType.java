@@ -1,6 +1,6 @@
 package com.turkuazgame.btlig.annotation;
 
-import com.turkuazgame.btlig.validator.UniqueUsernameValidator;
+import com.turkuazgame.btlig.validator.ExistsSeasonTypeValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -12,8 +12,8 @@ import java.lang.annotation.Target;
 
 @Target({ FIELD })
 @Retention(RUNTIME)
-@Constraint(validatedBy = { UniqueUsernameValidator.class })
-public @interface UniqueUsername {
+@Constraint(validatedBy = { ExistsSeasonTypeValidator.class })
+public @interface ExistsSeasonType {
 
     String message() default "";
 

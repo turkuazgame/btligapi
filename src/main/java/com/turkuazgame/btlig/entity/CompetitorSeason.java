@@ -1,5 +1,6 @@
 package com.turkuazgame.btlig.entity;
 
+import com.turkuazgame.btlig.request.CompetitorSeasonRequest;
 import com.turkuazgame.btlig.request.IRequest;
 import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
@@ -20,18 +21,18 @@ public class CompetitorSeason implements IEntity {
     @Column(name="competitor_season_id")
     private Long competitorSeasonId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="competitor_id", referencedColumnName = "competitor_id")
     private Competitor competitor;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "season_id", referencedColumnName = "season_id")
     private Season season;
 
     @Column(name="total_score")
     private double totalScore;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "competitor_week_id")
     private List<CompetitorWeek> weeks = new ArrayList<CompetitorWeek>();
 
@@ -76,7 +77,11 @@ public class CompetitorSeason implements IEntity {
 
     @Override
     public void setFromRequest(IRequest request) {
-
+        CompetitorSeasonRequest req = (CompetitorSeasonRequest) request;
+        this.competitorSeasonId = req.getCompetitorSeasonId();
+        this.competitor = req.getCompetitor();
+        this.season = req.getSeason();
+        this.baseInfo.setFromRequest(req);
     }
 
 }

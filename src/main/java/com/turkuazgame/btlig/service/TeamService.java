@@ -1,11 +1,13 @@
 package com.turkuazgame.btlig.service;
 
+import com.turkuazgame.btlig.entity.CompetitorSeason;
 import com.turkuazgame.btlig.entity.League;
 import com.turkuazgame.btlig.entity.Team;
 import com.turkuazgame.btlig.exception.ResourceNotFoundException;
 import com.turkuazgame.btlig.repository.LeagueRepository;
 import com.turkuazgame.btlig.repository.TeamRepository;
 import com.turkuazgame.btlig.request.TeamRequest;
+import com.turkuazgame.btlig.response.CompetitorSeasonResponse;
 import com.turkuazgame.btlig.response.TeamResponse;
 import com.turkuazgame.btlig.response.IResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,6 @@ import java.util.*;
 @Service
 public class TeamService {
 
-    @Value("${btlig.error.team.league.NotFound.message}")
-    private String leagueNotFoundErrorMsg;
-
     TeamRepository teamRepository;
     LeagueRepository leagueRepository;
     BaseService service;
@@ -28,6 +27,13 @@ public class TeamService {
         this.teamRepository = teamRepository;
         this.leagueRepository = leagueRepository;
         this.service = new BaseService(teamRepository, Team.class, TeamResponse.class);
+    }
+
+    public List<TeamResponse> getTeams(Optional<Long> leagueId){
+        if(leagueId.isPresent())
+            return getTeamsByLeague(leagueId.get());
+        else
+            return getAllTeams();
     }
 
     public List<TeamResponse> getAllTeams(){
@@ -42,20 +48,20 @@ public class TeamService {
     }
 
     public TeamResponse createTeam(TeamRequest teamRequest) throws ResourceNotFoundException {
-        League league = getLeague(teamRequest.getLeagueId());
+        League league = leagueRepository.findById(teamRequest.getLeagueId()).orElse(null);
         teamRequest.setLeague(league);
         return (TeamResponse) service.createEntity(teamRequest);
     }
 
-    public TeamResponse updateTeam(Long teamId, TeamRequest teamRequest) throws ResourceNotFoundException {
-        League league = getLeague(teamRequest.getLeagueId());
+    public TeamResponse updateTeam(Long teamId, TeamRequest teamRequest) {
+        League league = leagueRepository.findById(teamRequest.getLeagueId()).orElse(null);
         teamRequest.setLeague(league);
         return (TeamResponse) service.updateEntity(teamId, teamRequest);
     }
 
-    public TeamResponse mergeTeam(Long teamId, Map<Object, Object> fields) throws ResourceNotFoundException {
+    public TeamResponse mergeTeam(Long teamId, Map<Object, Object> fields) {
         if(fields.containsKey("leagueId")) {
-            League league = getLeague(Long.parseLong(fields.get("leagueId").toString()));
+            League league = leagueRepository.findById(Long.parseLong(fields.get("leagueId").toString())).orElse(null);
             fields.remove("leagueId");
             fields.put("league", league);
         }
@@ -66,22 +72,22 @@ public class TeamService {
         service.deleteEntity(teamId);
     }
 
-    public TeamResponse getTeamByLeague(String leagueId) throws ResourceNotFoundException {
-        if(leagueId!=null && !leagueId.equals("")) {
-            League league = getLeague(Long.parseLong(leagueId));
-            List<Team> list = teamRepository.findByLeague(league);
-            Team team = !list.isEmpty() ? list.get(0) : null;
-            TeamResponse response = team!=null ? new TeamResponse(team) : null;
-            return response;
+    public List<TeamResponse> getTeamsByLeague(Long leagueId) {
+        if(leagueId!=null && leagueId>0) {
+            League league = leagueRepository.findById(leagueId).orElse(null);
+            if(league!=null) {
+                List<Team> list = teamRepository.findByLeague(league);
+                List<TeamResponse> responseList = new ArrayList<>();
+                for(Team team : list) {
+                    TeamResponse response = new TeamResponse(team);
+                    responseList.add(response);
+                }
+                return responseList;
+            }
+            else
+                return null;
         } else
-            throw new ResourceNotFoundException(leagueNotFoundErrorMsg);
+            return null;
     }
 
-    private League getLeague(Long leagueId) throws ResourceNotFoundException {
-        League league = leagueRepository.findById(leagueId).orElse(null);
-        if(league==null) {
-            throw new ResourceNotFoundException(leagueNotFoundErrorMsg);
-        }
-        return league;
-    }
 }

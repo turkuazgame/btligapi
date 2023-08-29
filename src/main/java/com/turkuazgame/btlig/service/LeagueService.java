@@ -52,7 +52,7 @@ public class LeagueService {
         if(leagueCode!=null && !leagueCode.equals("")) {
             List<League> list = leagueRepository.findByLeagueCode(leagueCode);
             League league = !list.isEmpty() ? list.get(0) : null;
-            LeagueResponse response = new LeagueResponse(league);
+            LeagueResponse response = league!=null ? new LeagueResponse(league) : null;
             return response;
         } else
             return null;

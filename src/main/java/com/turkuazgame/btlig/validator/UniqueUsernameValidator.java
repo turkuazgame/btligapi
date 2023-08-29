@@ -1,6 +1,5 @@
 package com.turkuazgame.btlig.validator;
 
-
 import com.turkuazgame.btlig.annotation.UniqueUsername;
 import com.turkuazgame.btlig.entity.User;
 import com.turkuazgame.btlig.repository.UserRepository;

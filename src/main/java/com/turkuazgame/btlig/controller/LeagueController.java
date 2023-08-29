@@ -1,11 +1,13 @@
 package com.turkuazgame.btlig.controller;
 
+import com.turkuazgame.btlig.annotation.ExistsLeague;
 import com.turkuazgame.btlig.request.LeagueRequest;
 import com.turkuazgame.btlig.response.LeagueResponse;
 import com.turkuazgame.btlig.service.LeagueService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/leagues")
+@Validated
 public class LeagueController {
 
     @Autowired
@@ -25,7 +28,7 @@ public class LeagueController {
     }
 
     @GetMapping("/{leagueId}")
-    public ResponseEntity<?> getLeague(@PathVariable Long leagueId) {
+    public ResponseEntity<?> getLeague(@PathVariable @ExistsLeague Long leagueId) {
         LeagueResponse response = leagueService.getLeague(leagueId);
         return ResponseEntity.ok(response);
     }
@@ -37,25 +40,27 @@ public class LeagueController {
     }
 
     @PostMapping
-    public  ResponseEntity<?> createLeague(@RequestBody LeagueRequest leagueRequest) {
+    public  ResponseEntity<?> createLeague(@RequestBody @Valid LeagueRequest leagueRequest) {
         LeagueResponse response = leagueService.createLeague(leagueRequest);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{leagueId}")
-    public ResponseEntity<?> updateLeague(@PathVariable Long leagueId, @RequestBody LeagueRequest leagueRequest) {
+    public ResponseEntity<?> updateLeague(@PathVariable @ExistsLeague Long leagueId,
+                                          @RequestBody @Valid LeagueRequest leagueRequest) {
         LeagueResponse response = leagueService.updateLeague(leagueId, leagueRequest);
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{leagueId}")
-    public ResponseEntity<?> updateLeague(@PathVariable Long leagueId, @RequestBody Map<Object, Object> fields) {
+    public ResponseEntity<?> mergeLeague(@PathVariable @ExistsLeague Long leagueId,
+                                         @RequestBody Map<Object, Object> fields) {
         LeagueResponse response = leagueService.mergeLeague(leagueId, fields);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{leagueId}")
-    public ResponseEntity<?> deleteLeague(@PathVariable Long leagueId) {
+    public ResponseEntity<?> deleteLeague(@PathVariable @ExistsLeague Long leagueId) {
         leagueService.deleteLeague(leagueId);
         return ResponseEntity.ok(leagueId);
     }

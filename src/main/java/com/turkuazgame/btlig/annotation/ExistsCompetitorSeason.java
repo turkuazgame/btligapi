@@ -1,21 +1,22 @@
 package com.turkuazgame.btlig.annotation;
 
-import com.turkuazgame.btlig.validator.UniqueUsernameValidator;
+import com.turkuazgame.btlig.validator.ExistsCompetitorSeasonValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-@Target({ FIELD })
+@Target({ FIELD, PARAMETER })
 @Retention(RUNTIME)
-@Constraint(validatedBy = { UniqueUsernameValidator.class })
-public @interface UniqueUsername {
+@Constraint(validatedBy = { ExistsCompetitorSeasonValidator.class })
+public @interface ExistsCompetitorSeason {
 
-    String message() default "";
+    String message() default "CompetitorSeason mevcut değil!";
 
     Class<?>[] groups() default { };
 

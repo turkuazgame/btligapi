@@ -52,7 +52,7 @@ public class SeasonService {
         if(seasonCode!=null && !seasonCode.equals("")) {
             List<Season> list = seasonRepository.findBySeasonCode(seasonCode);
             Season season = !list.isEmpty() ? list.get(0) : null;
-            SeasonResponse response = new SeasonResponse(season);
+            SeasonResponse response = season!=null ? new SeasonResponse(season) : null;
             return response;
         } else
             return null;

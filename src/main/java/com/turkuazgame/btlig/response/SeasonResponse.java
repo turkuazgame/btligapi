@@ -4,7 +4,7 @@ import com.turkuazgame.btlig.entity.Season;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor

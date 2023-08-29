@@ -52,7 +52,7 @@ public class CompetitorService {
         if(userUID!=null && !userUID.equals("")) {
             List<Competitor> list = competitorRepository.findByUserUID(userUID);
             Competitor competitor = !list.isEmpty() ? list.get(0) : null;
-            CompetitorResponse response = new CompetitorResponse(competitor);
+            CompetitorResponse response = competitor!=null ? new CompetitorResponse(competitor) : null;
             return response;
         } else
             return null;

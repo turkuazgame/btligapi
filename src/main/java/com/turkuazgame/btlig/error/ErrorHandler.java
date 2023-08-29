@@ -23,9 +23,9 @@ public class ErrorHandler implements ErrorController {
     @RequestMapping("/error")
     ApiError handleError(WebRequest webRequest) {
         Map<String, Object> attributes = this.errorAttributes.getErrorAttributes(webRequest, ErrorAttributeOptions.of(Include.MESSAGE, Include.BINDING_ERRORS));
+        int status = (Integer) attributes.get("status");
         String message = (String)attributes.get("message");
         String path = (String) attributes.get("path");
-        int status = (Integer) attributes.get("status");
         ApiError error = new ApiError(status, message, path);
         if(attributes.containsKey("errors")) {
             @SuppressWarnings("unchecked")
