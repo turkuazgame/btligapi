@@ -1,17 +1,14 @@
 package com.turkuazgame.btlig.service;
 
-import com.turkuazgame.btlig.entity.CompetitorSeason;
 import com.turkuazgame.btlig.entity.League;
 import com.turkuazgame.btlig.entity.Team;
 import com.turkuazgame.btlig.exception.ResourceNotFoundException;
 import com.turkuazgame.btlig.repository.LeagueRepository;
 import com.turkuazgame.btlig.repository.TeamRepository;
 import com.turkuazgame.btlig.request.TeamRequest;
-import com.turkuazgame.btlig.response.CompetitorSeasonResponse;
 import com.turkuazgame.btlig.response.TeamResponse;
 import com.turkuazgame.btlig.response.IResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
