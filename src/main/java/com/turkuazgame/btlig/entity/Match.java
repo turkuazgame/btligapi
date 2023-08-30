@@ -1,12 +1,14 @@
 package com.turkuazgame.btlig.entity;
 
 import com.turkuazgame.btlig.request.IRequest;
-import com.turkuazgame.btlig.response.IResponse;
+import com.turkuazgame.btlig.request.MatchRequest;
+import com.turkuazgame.btlig.request.WeekRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +32,6 @@ public class Match implements IEntity {
     @Column(name="match_date")
     private Date matchDate;
 
-    @Column(name="match_time")
-    private Time matchTime;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "home_team_id", referencedColumnName = "team_id")
     private Team homeTeam;
@@ -48,8 +47,8 @@ public class Match implements IEntity {
     private short awayTeamScore;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="season_week_id", referencedColumnName = "season_week_id")
-    private SeasonWeek seasonWeek;
+    @JoinColumn(name="week_id", referencedColumnName = "week_id")
+    private Week week;
 
     @OneToMany
     @JoinColumn(name = "match_id")
@@ -68,12 +67,11 @@ public class Match implements IEntity {
         this.setMatchCode(newEntity.getMatchCode());
         this.setMatchName(newEntity.getMatchName());
         this.setMatchDate(newEntity.getMatchDate());
-        this.setMatchTime(newEntity.getMatchTime());
         this.setHomeTeam(newEntity.getHomeTeam());
         this.setAwayTeam(newEntity.getAwayTeam());
         this.setHomeTeamScore(newEntity.getHomeTeamScore());
         this.setAwayTeamScore(newEntity.getAwayTeamScore());
-        this.setSeasonWeek(newEntity.getSeasonWeek());
+        this.setWeek(newEntity.getWeek());
         this.setRates(newEntity.getRates());
         newEntity.getBaseInfo().setCreatedBy(this.getBaseInfo().getCreatedBy());
         this.setBaseInfo(newEntity.getBaseInfo());
@@ -81,7 +79,22 @@ public class Match implements IEntity {
 
     @Override
     public void setFromRequest(IRequest request) {
-
+        try {
+            MatchRequest req = (MatchRequest) request;
+            this.matchId = req.getWeekId();
+            this.matchCode = req.getMatchCode();
+            this.matchName = req.getMatchName();
+            this.week = req.getWeek();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            this.matchDate = sdf.parse(req.getMatchDate());
+            this.homeTeam = req.getHomeTeam();
+            this.awayTeam = req.getAwayTeam();
+            this.homeTeamScore = req.getHomeTeamScore();
+            this.awayTeamScore = req.getAwayTeamScore();
+            this.baseInfo.setFromRequest(req);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }
