@@ -1,9 +1,8 @@
 package com.turkuazgame.btlig.service;
 
-import com.turkuazgame.btlig.entity.Competitor;
 import com.turkuazgame.btlig.entity.CompetitorSeason;
 import com.turkuazgame.btlig.entity.CompetitorWeek;
-import com.turkuazgame.btlig.entity.SeasonWeek;
+import com.turkuazgame.btlig.entity.Week;
 import com.turkuazgame.btlig.repository.*;
 import com.turkuazgame.btlig.request.CompetitorWeekRequest;
 import com.turkuazgame.btlig.response.CompetitorWeekResponse;
@@ -17,16 +16,16 @@ public class CompetitorWeekService {
 
     CompetitorWeekRepository competitorWeekRepository;
     CompetitorSeasonRepository competitorSeasonRepository;
-    SeasonWeekRepository seasonWeekRepository;
+    WeekRepository weekRepository;
     BaseService service;
 
     @Autowired
     public CompetitorWeekService(CompetitorWeekRepository competitorWeekRepository,
                                  CompetitorSeasonRepository competitorSeasonRepository,
-                                 SeasonWeekRepository seasonWeekRepository) {
+                                 WeekRepository weekRepository) {
         this.competitorWeekRepository = competitorWeekRepository;
         this.competitorSeasonRepository = competitorSeasonRepository;
-        this.seasonWeekRepository = seasonWeekRepository;
+        this.weekRepository = weekRepository;
         this.service = new BaseService(competitorWeekRepository, CompetitorWeek.class, CompetitorWeekResponse.class);
     }
 
@@ -54,16 +53,16 @@ public class CompetitorWeekService {
     public CompetitorWeekResponse createCompetitorWeek(CompetitorWeekRequest competitorWeekRequest) {
         CompetitorSeason competitorSeason = competitorSeasonRepository.findById(competitorWeekRequest.getCompetitorSeasonId()).orElse(null);
         competitorWeekRequest.setCompetitorSeason(competitorSeason);
-        SeasonWeek seasonWeek = seasonWeekRepository.findById(competitorWeekRequest.getSeasonWeekId()).orElse(null);
-        competitorWeekRequest.setSeasonWeek(seasonWeek);
+        Week week = weekRepository.findById(competitorWeekRequest.getSeasonWeekId()).orElse(null);
+        competitorWeekRequest.setWeek(week);
         return (CompetitorWeekResponse) service.createEntity(competitorWeekRequest);
     }
 
     public CompetitorWeekResponse updateCompetitorWeek(Long competitorWeekId, CompetitorWeekRequest competitorWeekRequest) {
         CompetitorSeason competitorSeason = competitorSeasonRepository.findById(competitorWeekRequest.getCompetitorSeasonId()).orElse(null);
         competitorWeekRequest.setCompetitorSeason(competitorSeason);
-        SeasonWeek seasonWeek = seasonWeekRepository.findById(competitorWeekRequest.getSeasonWeekId()).orElse(null);
-        competitorWeekRequest.setSeasonWeek(seasonWeek);
+        Week week = weekRepository.findById(competitorWeekRequest.getSeasonWeekId()).orElse(null);
+        competitorWeekRequest.setWeek(week);
         return (CompetitorWeekResponse) service.updateEntity(competitorWeekId, competitorWeekRequest);
     }
 
@@ -74,9 +73,9 @@ public class CompetitorWeekService {
             fields.put("competitorSeason", competitorSeason);
         }
         if(fields.containsKey("seasonWeekId")) {
-            SeasonWeek seasonWeek = seasonWeekRepository.findById(Long.parseLong(fields.get("seasonWeekId").toString())).orElse(null);
+            Week week = weekRepository.findById(Long.parseLong(fields.get("seasonWeekId").toString())).orElse(null);
             fields.remove("seasonWeekId");
-            fields.put("seasonWeek", seasonWeek);
+            fields.put("seasonWeek", week);
         }
         return (CompetitorWeekResponse) service.mergeEntity(competitorWeekId,fields);
     }
@@ -105,9 +104,9 @@ public class CompetitorWeekService {
 
     public List<CompetitorWeekResponse> getCompetitorWeekBySeasonWeek(Long seasonWeekId) {
         if(seasonWeekId!=null && seasonWeekId>0) {
-            SeasonWeek seasonWeek = seasonWeekRepository.findById(seasonWeekId).orElse(null);
-            if(seasonWeek!=null) {
-                List<CompetitorWeek> list = competitorWeekRepository.findBySeasonWeek(seasonWeek);
+            Week week = weekRepository.findById(seasonWeekId).orElse(null);
+            if(week !=null) {
+                List<CompetitorWeek> list = competitorWeekRepository.findBySeasonWeek(week);
                 List<CompetitorWeekResponse> responseList = new ArrayList<>();
                 for(CompetitorWeek competitorWeek : list) {
                     CompetitorWeekResponse response = new CompetitorWeekResponse(competitorWeek);
@@ -124,9 +123,9 @@ public class CompetitorWeekService {
     public List<CompetitorWeekResponse> getCompetitorWeekByCompetitorSeasonAndSeasonWeek(Long competitorSeasonId, Long seasonWeekId) {
         if(competitorSeasonId!=null && competitorSeasonId>0 && seasonWeekId!=null && seasonWeekId>0) {
             CompetitorSeason competitorSeason = competitorSeasonRepository.findById(competitorSeasonId).orElse(null);
-            SeasonWeek seasonWeek = seasonWeekRepository.findById(seasonWeekId).orElse(null);
-            if(competitorSeason!=null && seasonWeek!=null) {
-                List<CompetitorWeek> list = competitorWeekRepository.findBySeasonWeek(seasonWeek);
+            Week week = weekRepository.findById(seasonWeekId).orElse(null);
+            if(competitorSeason!=null && week !=null) {
+                List<CompetitorWeek> list = competitorWeekRepository.findBySeasonWeek(week);
                 List<CompetitorWeekResponse> responseList = new ArrayList<>();
                 for(CompetitorWeek competitorWeek : list) {
                     CompetitorWeekResponse response = new CompetitorWeekResponse(competitorWeek);

@@ -39,7 +39,7 @@ public class Season implements IEntity {
 
     @OneToMany
     @JoinColumn(name = "season_id")
-    private List<SeasonWeek> weeks = new ArrayList<SeasonWeek>();
+    private List<Week> weeks = new ArrayList<Week>();
 
     @Embedded
     private BaseInfo baseInfo;

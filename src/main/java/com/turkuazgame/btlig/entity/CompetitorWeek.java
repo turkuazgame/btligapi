@@ -1,7 +1,6 @@
 package com.turkuazgame.btlig.entity;
 
 import com.turkuazgame.btlig.request.IRequest;
-import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,8 +24,8 @@ public class CompetitorWeek implements IEntity {
     private CompetitorSeason competitorSeason;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "season_week_id", referencedColumnName = "season_week_id")
-    private SeasonWeek seasonWeek;
+    @JoinColumn(name = "week_id", referencedColumnName = "week_id")
+    private Week week;
 
     @Column(name="total_score")
     private double totalScore;
@@ -46,7 +45,7 @@ public class CompetitorWeek implements IEntity {
     public void setFromOther(IEntity other) {
         CompetitorWeek newEntity = (CompetitorWeek) other;
         this.setCompetitorSeason(newEntity.getCompetitorSeason());
-        this.setSeasonWeek(newEntity.getSeasonWeek());
+        this.setWeek(newEntity.getWeek());
         this.setTotalScore(newEntity.getTotalScore());
         this.setMatches(newEntity.getMatches());
         newEntity.getBaseInfo().setCreatedBy(this.getBaseInfo().getCreatedBy());

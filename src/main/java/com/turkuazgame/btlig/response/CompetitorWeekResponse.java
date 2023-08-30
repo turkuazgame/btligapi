@@ -19,7 +19,7 @@ public class CompetitorWeekResponse extends BaseResponse implements IResponse {
     public CompetitorWeekResponse(CompetitorWeek competitorWeek) {
         this.setCompetitorWeekId(competitorWeek.getCompetitorWeekId());
         this.setCompetitorSeasonId(competitorWeek.getCompetitorSeason().getCompetitorSeasonId());
-        this.setSeasonWeekId(competitorWeek.getSeasonWeek().getSeasonWeekId());
+        this.setSeasonWeekId(competitorWeek.getWeek().getSeasonWeekId());
         this.setTotalScore(competitorWeek.getTotalScore());
         this.setMatchListSize(competitorWeek.getMatches().size());
 

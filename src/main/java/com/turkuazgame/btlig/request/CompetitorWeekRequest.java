@@ -2,9 +2,9 @@ package com.turkuazgame.btlig.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.turkuazgame.btlig.annotation.ExistsCompetitorSeason;
-import com.turkuazgame.btlig.annotation.ExistsSeasonWeek;
+import com.turkuazgame.btlig.annotation.ExistsWeek;
 import com.turkuazgame.btlig.entity.CompetitorSeason;
-import com.turkuazgame.btlig.entity.SeasonWeek;
+import com.turkuazgame.btlig.entity.Week;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -21,14 +21,14 @@ public class CompetitorWeekRequest extends BaseRequest implements IRequest {
     private Long competitorSeasonId;
     @NotNull
     @NotEmpty
-    @ExistsSeasonWeek
+    @ExistsWeek
     private Long seasonWeekId;
 
     @JsonIgnore
     private CompetitorSeason competitorSeason;
 
     @JsonIgnore
-    private SeasonWeek seasonWeek;
+    private Week week;
 
     @Override
     public void setId(Long id) {

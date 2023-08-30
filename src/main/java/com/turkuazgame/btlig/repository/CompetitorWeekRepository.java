@@ -10,6 +10,6 @@ import java.util.List;
 public interface CompetitorWeekRepository extends JpaRepository<CompetitorWeek, Long> {
 
     List<CompetitorWeek> findByCompetitorSeason(CompetitorSeason competitorSeason);
-    List<CompetitorWeek> findBySeasonWeek(SeasonWeek seasonWeek);
-    List<CompetitorWeek> findByCompetitorSeasonAndSeasonWeek(CompetitorSeason competitorSeason, SeasonWeek seasonWeek);
+    List<CompetitorWeek> findBySeasonWeek(Week week);
+    List<CompetitorWeek> findByCompetitorSeasonAndSeasonWeek(CompetitorSeason competitorSeason, Week week);
 }

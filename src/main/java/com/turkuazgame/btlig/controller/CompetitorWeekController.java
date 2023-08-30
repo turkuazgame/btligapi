@@ -2,7 +2,7 @@ package com.turkuazgame.btlig.controller;
 
 import com.turkuazgame.btlig.annotation.ExistsCompetitorSeason;
 import com.turkuazgame.btlig.annotation.ExistsCompetitorWeek;
-import com.turkuazgame.btlig.annotation.ExistsSeasonWeek;
+import com.turkuazgame.btlig.annotation.ExistsWeek;
 import com.turkuazgame.btlig.request.CompetitorWeekRequest;
 import com.turkuazgame.btlig.response.CompetitorWeekResponse;
 import com.turkuazgame.btlig.service.CompetitorWeekService;
@@ -24,7 +24,7 @@ public class CompetitorWeekController {
 
     @GetMapping
     public List<CompetitorWeekResponse> getCompetitorWeeks(@RequestParam @ExistsCompetitorSeason Optional<Long> competitorSeasonId,
-                                                           @RequestParam @ExistsSeasonWeek Optional<Long> seasonWeekId){
+                                                           @RequestParam @ExistsWeek Optional<Long> seasonWeekId){
         return competitorWeekService.getCompetitorWeeks(competitorSeasonId, seasonWeekId);
     }
 

@@ -1,7 +1,6 @@
 package com.turkuazgame.btlig.entity;
 
 import com.turkuazgame.btlig.request.IRequest;
-import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,23 +11,23 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="season_week")
-public class SeasonWeek implements IEntity {
+@Table(name="week")
+public class Week implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="season_week_id")
-    private Long seasonWeekId;
+    @Column(name="week_id")
+    private Long weekId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="season_id", referencedColumnName = "season_id")
     private Season season;
 
-    @Column(name="season_week_code", unique = true)
-    private String seasonWeekCode;
+    @Column(name="week_code", unique = true)
+    private String weekCode;
 
-    @Column(name="season_week_name")
-    private String seasonWeekName;
+    @Column(name="week_name")
+    private String weekName;
 
     @Column(name="start_date")
     private Date startDate;
@@ -45,9 +44,9 @@ public class SeasonWeek implements IEntity {
 
     @Override
     public void setFromOther(IEntity other) {
-        SeasonWeek newEntity = (SeasonWeek) other;
-        this.setSeasonWeekCode(newEntity.getSeasonWeekCode());
-        this.setSeasonWeekName(newEntity.getSeasonWeekName());
+        Week newEntity = (Week) other;
+        this.setWeekCode(newEntity.getWeekCode());
+        this.setWeekName(newEntity.getWeekName());
         this.setSeason(newEntity.getSeason());
         this.setStartDate(newEntity.getStartDate());
         this.setEndDate(newEntity.getEndDate());

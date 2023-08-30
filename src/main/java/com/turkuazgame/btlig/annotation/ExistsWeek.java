@@ -1,6 +1,6 @@
 package com.turkuazgame.btlig.annotation;
 
-import com.turkuazgame.btlig.validator.ExistsSeasonWeekValidator;
+import com.turkuazgame.btlig.validator.ExistsWeekValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -13,8 +13,8 @@ import java.lang.annotation.Target;
 
 @Target({ FIELD, PARAMETER })
 @Retention(RUNTIME)
-@Constraint(validatedBy = { ExistsSeasonWeekValidator.class })
-public @interface ExistsSeasonWeek {
+@Constraint(validatedBy = { ExistsWeekValidator.class })
+public @interface ExistsWeek {
 
     String message() default "";
 
