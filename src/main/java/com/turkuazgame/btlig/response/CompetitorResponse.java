@@ -1,7 +1,6 @@
 package com.turkuazgame.btlig.response;
 
 import com.turkuazgame.btlig.entity.Competitor;
-import com.turkuazgame.btlig.entity.IEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

@@ -20,7 +20,9 @@ public class CompetitorSeasonService {
     BaseService service;
 
     @Autowired
-    public CompetitorSeasonService(CompetitorSeasonRepository competitorSeasonRepository, CompetitorRepository competitorRepository, SeasonRepository seasonRepository) {
+    public CompetitorSeasonService(CompetitorSeasonRepository competitorSeasonRepository,
+                                   CompetitorRepository competitorRepository,
+                                   SeasonRepository seasonRepository) {
         this.competitorSeasonRepository = competitorSeasonRepository;
         this.competitorRepository = competitorRepository;
         this.seasonRepository = seasonRepository;
