@@ -54,7 +54,7 @@ public class RateTypeController {
     }
 
     @DeleteMapping("/{rateTypeId}")
-    public ResponseEntity<?> deleteRateType(@PathVariable Long rateTypeId) {
+    public ResponseEntity<?> deleteRateType(@PathVariable @ExistsRateType Long rateTypeId) {
         rateTypeService.deleteRateType(rateTypeId);
         return ResponseEntity.ok(rateTypeId);
     }

@@ -1,9 +1,8 @@
 package com.turkuazgame.btlig.controller;
 
-import com.turkuazgame.btlig.annotation.ExistsLeague;
 import com.turkuazgame.btlig.annotation.ExistsRate;
+import com.turkuazgame.btlig.annotation.ExistsRateType;
 import com.turkuazgame.btlig.request.RateRequest;
-import com.turkuazgame.btlig.response.LeagueResponse;
 import com.turkuazgame.btlig.response.RateResponse;
 import com.turkuazgame.btlig.service.RateService;
 import jakarta.validation.Valid;
@@ -25,7 +24,7 @@ public class RateController {
     private RateService rateService;
 
     @GetMapping
-    public ResponseEntity<?> getRates(@RequestParam @ExistsLeague Optional<Long> rateTypeId){
+    public ResponseEntity<?> getRates(@RequestParam @ExistsRateType Optional<Long> rateTypeId){
         List<RateResponse> responseList = rateService.getRates(rateTypeId);
         return ResponseEntity.ok(responseList);
     }
