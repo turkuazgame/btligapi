@@ -1,10 +1,14 @@
 package com.turkuazgame.btlig.entity;
 
 import com.turkuazgame.btlig.request.IRequest;
+import com.turkuazgame.btlig.request.SeasonRequest;
+import com.turkuazgame.btlig.request.WeekRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +61,19 @@ public class Week implements IEntity {
 
     @Override
     public void setFromRequest(IRequest request) {
-
+        try {
+            WeekRequest req = (WeekRequest) request;
+            this.weekId = req.getWeekId();
+            this.weekCode = req.getWeekCode();
+            this.weekName = req.getWeekName();
+            this.season = req.getSeason();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            this.startDate = sdf.parse(req.getStartDate());
+            this.endDate = sdf.parse(req.getEndDate());
+            this.baseInfo.setFromRequest(req);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }

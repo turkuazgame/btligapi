@@ -106,7 +106,7 @@ public class CompetitorWeekService {
         if(weekId!=null && weekId>0) {
             Week week = weekRepository.findById(weekId).orElse(null);
             if(week !=null) {
-                List<CompetitorWeek> list = competitorWeekRepository.findBySeasonWeek(week);
+                List<CompetitorWeek> list = competitorWeekRepository.findByWeek(week);
                 List<CompetitorWeekResponse> responseList = new ArrayList<>();
                 for(CompetitorWeek competitorWeek : list) {
                     CompetitorWeekResponse response = new CompetitorWeekResponse(competitorWeek);
@@ -125,7 +125,7 @@ public class CompetitorWeekService {
             CompetitorSeason competitorSeason = competitorSeasonRepository.findById(competitorSeasonId).orElse(null);
             Week week = weekRepository.findById(weekId).orElse(null);
             if(competitorSeason!=null && week !=null) {
-                List<CompetitorWeek> list = competitorWeekRepository.findBySeasonWeek(week);
+                List<CompetitorWeek> list = competitorWeekRepository.findByCompetitorSeasonAndWeek(competitorSeason, week);
                 List<CompetitorWeekResponse> responseList = new ArrayList<>();
                 for(CompetitorWeek competitorWeek : list) {
                     CompetitorWeekResponse response = new CompetitorWeekResponse(competitorWeek);

@@ -26,50 +26,50 @@ public class WeekService {
         this.service = new BaseService(weekRepository, Week.class, WeekResponse.class);
     }
 
-    public List<WeekResponse> getSeasonWeeks(Optional<Long> seasonId){
+    public List<WeekResponse> getWeeks(Optional<Long> seasonId){
         if(seasonId.isPresent())
-            return getSeasonWeeksBySeason(seasonId.get());
+            return getWeeksBySeason(seasonId.get());
         else
-            return getAllSeasonWeeks();
+            return getAllWeeks();
     }
 
-    public List<WeekResponse> getAllSeasonWeeks(){
+    public List<WeekResponse> getAllWeeks(){
         List<WeekResponse> responseList = new ArrayList<>();
         for(IResponse iresponse : service.getAllEntities())
             responseList.add((WeekResponse) iresponse);
         return responseList;
     }
 
-    public WeekResponse getSeasonWeek(Long seasonWeekId) {
-        return (WeekResponse) service.getEntity(seasonWeekId);
+    public WeekResponse getWeek(Long weekId) {
+        return (WeekResponse) service.getEntity(weekId);
     }
 
-    public WeekResponse createSeasonWeek(WeekRequest weekRequest) throws ResourceNotFoundException {
+    public WeekResponse createWeek(WeekRequest weekRequest) throws ResourceNotFoundException {
         Season season = seasonRepository.findById(weekRequest.getSeasonId()).orElse(null);
         weekRequest.setSeason(season);
         return (WeekResponse) service.createEntity(weekRequest);
     }
 
-    public WeekResponse updateSeasonWeek(Long seasonWeekId, WeekRequest weekRequest) {
+    public WeekResponse updateWeek(Long weekId, WeekRequest weekRequest) {
         Season season = seasonRepository.findById(weekRequest.getSeasonId()).orElse(null);
         weekRequest.setSeason(season);
-        return (WeekResponse) service.updateEntity(seasonWeekId, weekRequest);
+        return (WeekResponse) service.updateEntity(weekId, weekRequest);
     }
 
-    public WeekResponse mergeSeasonWeek(Long seasonWeekId, Map<Object, Object> fields) {
+    public WeekResponse mergeWeek(Long weekId, Map<Object, Object> fields) {
         if(fields.containsKey("seasonId")) {
             Season season = seasonRepository.findById(Long.parseLong(fields.get("seasonId").toString())).orElse(null);
             fields.remove("seasonId");
             fields.put("season", season);
         }
-        return (WeekResponse) service.mergeEntity(seasonWeekId,fields);
+        return (WeekResponse) service.mergeEntity(weekId,fields);
     }
 
-    public void deleteSeasonWeek(Long seasonWeekId) {
-        service.deleteEntity(seasonWeekId);
+    public void deleteWeek(Long weekId) {
+        service.deleteEntity(weekId);
     }
 
-    public List<WeekResponse> getSeasonWeeksBySeason(Long seasonId) {
+    public List<WeekResponse> getWeeksBySeason(Long seasonId) {
         if(seasonId!=null && seasonId>0) {
             Season season = seasonRepository.findById(seasonId).orElse(null);
             if(season!=null) {

@@ -24,40 +24,40 @@ public class WeekController {
     private WeekService weekService;
 
     @GetMapping
-    public ResponseEntity<?> getSeasonWeeks(@RequestParam @ExistsSeason Optional<Long> seasonId){
-        List<WeekResponse> responseList = weekService.getSeasonWeeks(seasonId);
+    public ResponseEntity<?> getWeeks(@RequestParam @ExistsSeason Optional<Long> seasonId){
+        List<WeekResponse> responseList = weekService.getWeeks(seasonId);
         return ResponseEntity.ok(responseList);
     }
 
     @GetMapping("/{weekId}")
-    public ResponseEntity<?> getSeasonWeek(@PathVariable @ExistsWeek Long weekId) {
-        WeekResponse response = weekService.getSeasonWeek(weekId);
+    public ResponseEntity<?> getWeek(@PathVariable @ExistsWeek Long weekId) {
+        WeekResponse response = weekService.getWeek(weekId);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public  ResponseEntity<?> createSeasonWeek(@RequestBody @Valid WeekRequest weekRequest) {
-        WeekResponse response = weekService.createSeasonWeek(weekRequest);
+    public  ResponseEntity<?> createWeek(@RequestBody @Valid WeekRequest weekRequest) {
+        WeekResponse response = weekService.createWeek(weekRequest);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{weekId}")
-    public ResponseEntity<?> updateSeasonWeek(@PathVariable @ExistsWeek Long weekId,
-                                              @RequestBody @Valid WeekRequest weekRequest) {
-        WeekResponse response = weekService.updateSeasonWeek(weekId, weekRequest);
+    public ResponseEntity<?> updateWeek(@PathVariable @ExistsWeek Long weekId,
+                                        @RequestBody @Valid WeekRequest weekRequest) {
+        WeekResponse response = weekService.updateWeek(weekId, weekRequest);
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{weekId}")
-    public ResponseEntity<?> mergeSeasonWeek(@PathVariable @ExistsWeek Long weekId,
-                                             @RequestBody Map<Object, Object> fields) {
-        WeekResponse response = weekService.mergeSeasonWeek(weekId, fields);
+    public ResponseEntity<?> mergeWeek(@PathVariable @ExistsWeek Long weekId,
+                                       @RequestBody Map<Object, Object> fields) {
+        WeekResponse response = weekService.mergeWeek(weekId, fields);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{weekId}")
-    public ResponseEntity<?> deleteSeasonWeek(@PathVariable @ExistsWeek Long weekId) {
-        weekService.deleteSeasonWeek(weekId);
+    public ResponseEntity<?> deleteWeek(@PathVariable @ExistsWeek Long weekId) {
+        weekService.deleteWeek(weekId);
         return ResponseEntity.ok(weekId);
     }
 }
