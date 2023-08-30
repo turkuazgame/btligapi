@@ -43,14 +43,14 @@ public class MatchController {
 
     @PutMapping("/{matchId}")
     public ResponseEntity<?> updateMatch(@PathVariable @ExistsMatch Long matchId,
-                                        @RequestBody @Valid MatchRequest matchRequest) {
+                                         @RequestBody @Valid MatchRequest matchRequest) {
         MatchResponse response = matchService.updateMatch(matchId, matchRequest);
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{matchId}")
     public ResponseEntity<?> mergeMatch(@PathVariable @ExistsMatch Long matchId,
-                                       @RequestBody Map<Object, Object> fields) {
+                                        @RequestBody Map<Object, Object> fields) {
         MatchResponse response = matchService.mergeMatch(matchId, fields);
         return ResponseEntity.ok(response);
     }
