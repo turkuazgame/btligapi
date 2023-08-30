@@ -24,8 +24,8 @@ public class CompetitorWeekController {
 
     @GetMapping
     public List<CompetitorWeekResponse> getCompetitorWeeks(@RequestParam @ExistsCompetitorSeason Optional<Long> competitorSeasonId,
-                                                           @RequestParam @ExistsWeek Optional<Long> seasonWeekId){
-        return competitorWeekService.getCompetitorWeeks(competitorSeasonId, seasonWeekId);
+                                                           @RequestParam @ExistsWeek Optional<Long> weekId){
+        return competitorWeekService.getCompetitorWeeks(competitorSeasonId, weekId);
     }
 
     @GetMapping("/{competitorWeekId}")

@@ -12,14 +12,14 @@ public class CompetitorWeekResponse extends BaseResponse implements IResponse {
 
     private Long competitorWeekId;
     private Long competitorSeasonId;
-    private Long seasonWeekId;
+    private Long weekId;
     private double totalScore;
     private int matchListSize;
 
     public CompetitorWeekResponse(CompetitorWeek competitorWeek) {
         this.setCompetitorWeekId(competitorWeek.getCompetitorWeekId());
         this.setCompetitorSeasonId(competitorWeek.getCompetitorSeason().getCompetitorSeasonId());
-        this.setSeasonWeekId(competitorWeek.getWeek().getSeasonWeekId());
+        this.setWeekId(competitorWeek.getWeek().getWeekId());
         this.setTotalScore(competitorWeek.getTotalScore());
         this.setMatchListSize(competitorWeek.getMatches().size());
 

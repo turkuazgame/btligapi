@@ -22,7 +22,7 @@ public class CompetitorWeekRequest extends BaseRequest implements IRequest {
     @NotNull
     @NotEmpty
     @ExistsWeek
-    private Long seasonWeekId;
+    private Long weekId;
 
     @JsonIgnore
     private CompetitorSeason competitorSeason;
