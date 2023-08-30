@@ -67,13 +67,13 @@ public class CompetitorWeekService {
     }
 
     public CompetitorWeekResponse mergeCompetitorWeek(Long competitorWeekId, Map<Object, Object> fields) {
-        if(fields.containsKey("competitorId")) {
+        if(fields.containsKey("competitorSeasonId")) {
             CompetitorSeason competitorSeason = competitorSeasonRepository.findById(Long.parseLong(fields.get("competitorSeasonId").toString())).orElse(null);
             fields.remove("competitorSeasonId");
             fields.put("competitorSeason", competitorSeason);
         }
         if(fields.containsKey("weekId")) {
-            Week week = weekRepository.findById(Long.parseLong(fields.get("seasonWeekId").toString())).orElse(null);
+            Week week = weekRepository.findById(Long.parseLong(fields.get("weekId").toString())).orElse(null);
             fields.remove("weekId");
             fields.put("week", week);
         }

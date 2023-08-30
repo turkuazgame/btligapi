@@ -2,7 +2,6 @@ package com.turkuazgame.btlig.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.turkuazgame.btlig.annotation.ExistsNation;
 import com.turkuazgame.btlig.annotation.ExistsSeason;
 import com.turkuazgame.btlig.entity.Season;
 import jakarta.validation.constraints.NotEmpty;
@@ -12,15 +11,15 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class SeasonWeekRequest extends BaseRequest implements IRequest {
+public class WeekRequest extends BaseRequest implements IRequest {
 
-    private Long seasonWeekId;
+    private Long weekId;
     @NotNull
     @NotEmpty
-    private String seasonWeekCode;
+    private String weekCode;
     @NotNull
     @NotEmpty
-    private String seasonWeekName;
+    private String weekName;
     @NotNull
     @NotEmpty
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
@@ -38,7 +37,7 @@ public class SeasonWeekRequest extends BaseRequest implements IRequest {
 
     @Override
     public void setId(Long id) {
-        this.seasonWeekId = id;
+        this.weekId = id;
     }
 
 }

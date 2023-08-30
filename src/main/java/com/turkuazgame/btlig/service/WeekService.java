@@ -5,7 +5,7 @@ import com.turkuazgame.btlig.entity.Week;
 import com.turkuazgame.btlig.exception.ResourceNotFoundException;
 import com.turkuazgame.btlig.repository.SeasonRepository;
 import com.turkuazgame.btlig.repository.WeekRepository;
-import com.turkuazgame.btlig.request.SeasonWeekRequest;
+import com.turkuazgame.btlig.request.WeekRequest;
 import com.turkuazgame.btlig.response.WeekResponse;
 import com.turkuazgame.btlig.response.IResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class SeasonWeekService {
+public class WeekService {
 
     WeekRepository weekRepository;
     SeasonRepository seasonRepository;
     BaseService service;
 
     @Autowired
-    public SeasonWeekService(WeekRepository weekRepository, SeasonRepository seasonRepository) {
+    public WeekService(WeekRepository weekRepository, SeasonRepository seasonRepository) {
         this.weekRepository = weekRepository;
         this.seasonRepository = seasonRepository;
         this.service = new BaseService(weekRepository, Week.class, WeekResponse.class);
@@ -44,16 +44,16 @@ public class SeasonWeekService {
         return (WeekResponse) service.getEntity(seasonWeekId);
     }
 
-    public WeekResponse createSeasonWeek(SeasonWeekRequest seasonWeekRequest) throws ResourceNotFoundException {
-        Season season = seasonRepository.findById(seasonWeekRequest.getSeasonId()).orElse(null);
-        seasonWeekRequest.setSeason(season);
-        return (WeekResponse) service.createEntity(seasonWeekRequest);
+    public WeekResponse createSeasonWeek(WeekRequest weekRequest) throws ResourceNotFoundException {
+        Season season = seasonRepository.findById(weekRequest.getSeasonId()).orElse(null);
+        weekRequest.setSeason(season);
+        return (WeekResponse) service.createEntity(weekRequest);
     }
 
-    public WeekResponse updateSeasonWeek(Long seasonWeekId, SeasonWeekRequest seasonWeekRequest) {
-        Season season = seasonRepository.findById(seasonWeekRequest.getSeasonId()).orElse(null);
-        seasonWeekRequest.setSeason(season);
-        return (WeekResponse) service.updateEntity(seasonWeekId, seasonWeekRequest);
+    public WeekResponse updateSeasonWeek(Long seasonWeekId, WeekRequest weekRequest) {
+        Season season = seasonRepository.findById(weekRequest.getSeasonId()).orElse(null);
+        weekRequest.setSeason(season);
+        return (WeekResponse) service.updateEntity(seasonWeekId, weekRequest);
     }
 
     public WeekResponse mergeSeasonWeek(Long seasonWeekId, Map<Object, Object> fields) {
