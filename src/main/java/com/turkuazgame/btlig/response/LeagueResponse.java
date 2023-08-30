@@ -23,12 +23,7 @@ public class LeagueResponse extends BaseResponse implements IResponse{
         this.setLeagueNation(league.getLeagueNation().toString());
         this.setTeamListSize(league.getTeamListSize());
 
-        this.setStatus(league.getBaseInfo().getStatus());
-        this.setCreatedBy(league.getBaseInfo().getCreatedBy());
-        this.setCreateDate(league.getBaseInfo().getCreateDate());
-        this.setUpdatedBy(league.getBaseInfo().getUpdatedBy());
-        this.setUpdatedFrom(league.getBaseInfo().getUpdatedFrom());
-        this.setUpdateDate(league.getBaseInfo().getUpdateDate());
+        setBaseInfo(league.getBaseInfo());
     }
 
 }

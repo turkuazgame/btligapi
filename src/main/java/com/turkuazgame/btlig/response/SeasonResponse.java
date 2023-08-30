@@ -28,12 +28,7 @@ public class SeasonResponse extends BaseResponse implements IResponse{
         this.setEndDate(season.getEndDate());
         this.setWeekListSize(season.getWeekListSize());
 
-        this.setStatus(season.getBaseInfo().getStatus());
-        this.setCreatedBy(season.getBaseInfo().getCreatedBy());
-        this.setCreateDate(season.getBaseInfo().getCreateDate());
-        this.setUpdatedBy(season.getBaseInfo().getUpdatedBy());
-        this.setUpdatedFrom(season.getBaseInfo().getUpdatedFrom());
-        this.setUpdateDate(season.getBaseInfo().getUpdateDate());
+        setBaseInfo(season.getBaseInfo());
     }
 
 }

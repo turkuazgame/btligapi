@@ -22,12 +22,7 @@ public class CompetitorResponse extends BaseResponse implements IResponse {
         this.setUserUID(competitor.getUserUID());
         this.setSeasonListSize(competitor.getSeasonListSize());
 
-        this.setStatus(competitor.getBaseInfo().getStatus());
-        this.setCreatedBy(competitor.getBaseInfo().getCreatedBy());
-        this.setCreateDate(competitor.getBaseInfo().getCreateDate());
-        this.setUpdatedBy(competitor.getBaseInfo().getUpdatedBy());
-        this.setUpdatedFrom(competitor.getBaseInfo().getUpdatedFrom());
-        this.setUpdateDate(competitor.getBaseInfo().getUpdateDate());
+        setBaseInfo(competitor.getBaseInfo());
     }
 
 }

@@ -25,11 +25,6 @@ public class CompetitorSeasonResponse extends BaseResponse implements IResponse 
         this.setTotalScore(competitorSeason.getTotalScore());
         this.setWeekListSize(competitorSeason.getWeekListSize());
 
-        this.setStatus(competitorSeason.getBaseInfo().getStatus());
-        this.setCreatedBy(competitorSeason.getBaseInfo().getCreatedBy());
-        this.setCreateDate(competitorSeason.getBaseInfo().getCreateDate());
-        this.setUpdatedBy(competitorSeason.getBaseInfo().getUpdatedBy());
-        this.setUpdatedFrom(competitorSeason.getBaseInfo().getUpdatedFrom());
-        this.setUpdateDate(competitorSeason.getBaseInfo().getUpdateDate());
+        setBaseInfo(competitorSeason.getBaseInfo());
     }
 }

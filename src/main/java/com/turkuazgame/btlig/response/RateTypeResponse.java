@@ -19,12 +19,7 @@ public class RateTypeResponse extends BaseResponse implements IResponse{
         this.setRateTypeCode(rateType.getRateTypeCode());
         this.setRateTypeName(rateType.getRateTypeName());
 
-        this.setStatus(rateType.getBaseInfo().getStatus());
-        this.setCreatedBy(rateType.getBaseInfo().getCreatedBy());
-        this.setCreateDate(rateType.getBaseInfo().getCreateDate());
-        this.setUpdatedBy(rateType.getBaseInfo().getUpdatedBy());
-        this.setUpdatedFrom(rateType.getBaseInfo().getUpdatedFrom());
-        this.setUpdateDate(rateType.getBaseInfo().getUpdateDate());
+        setBaseInfo(rateType.getBaseInfo());
     }
 
 }

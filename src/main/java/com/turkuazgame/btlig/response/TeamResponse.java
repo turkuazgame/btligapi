@@ -22,12 +22,7 @@ public class TeamResponse extends BaseResponse implements IResponse{
         this.setTeamNation(team.getTeamNation().toString());
         this.setLeagueId(team.getLeagueId());
 
-        this.setStatus(team.getBaseInfo().getStatus());
-        this.setCreatedBy(team.getBaseInfo().getCreatedBy());
-        this.setCreateDate(team.getBaseInfo().getCreateDate());
-        this.setUpdatedBy(team.getBaseInfo().getUpdatedBy());
-        this.setUpdatedFrom(team.getBaseInfo().getUpdatedFrom());
-        this.setUpdateDate(team.getBaseInfo().getUpdateDate());
+        setBaseInfo(team.getBaseInfo());
     }
 
 }
