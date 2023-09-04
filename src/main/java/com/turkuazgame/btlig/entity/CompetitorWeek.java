@@ -1,5 +1,6 @@
 package com.turkuazgame.btlig.entity;
 
+import com.turkuazgame.btlig.request.CompetitorWeekRequest;
 import com.turkuazgame.btlig.request.IRequest;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -54,7 +55,11 @@ public class CompetitorWeek implements IEntity {
 
     @Override
     public void setFromRequest(IRequest request) {
-
+        CompetitorWeekRequest req = (CompetitorWeekRequest) request;
+        this.competitorWeekId = req.getCompetitorWeekId();
+        this.competitorSeason = req.getCompetitorSeason();
+        this.week = req.getWeek();
+        this.baseInfo.setFromRequest(req);
     }
 
 }

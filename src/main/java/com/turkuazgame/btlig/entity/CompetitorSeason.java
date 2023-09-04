@@ -2,7 +2,6 @@ package com.turkuazgame.btlig.entity;
 
 import com.turkuazgame.btlig.request.CompetitorSeasonRequest;
 import com.turkuazgame.btlig.request.IRequest;
-import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
