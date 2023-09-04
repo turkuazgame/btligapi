@@ -35,10 +35,10 @@ public class MatchRequest extends BaseRequest implements IRequest {
     @NotNull
     @ExistsTeam
     private Long awayTeamId;
-    @NotNull
-    private short homeTeamScore;
-    @NotNull
-    private short awayTeamScore;
+    private short homeTeamHalfScore;
+    private short awayTeamHalfScore;
+    private short homeTeamFinalScore;
+    private short awayTeamFinalScore;
 
     @JsonIgnore
     private Week week;

@@ -49,9 +49,8 @@ public class BaseService implements IService {
 
     public IResponse getEntity(Long id) {
         try {
-            IEntity entity = (IEntity) repository.findById(id).orElse(null);
-            IResponse response = classOfResponse.getDeclaredConstructor(classOfEntity).newInstance(entity);
-            return response;
+            IEntity entity = repository.findById(id).orElse(null);
+            return classOfResponse.getDeclaredConstructor(classOfEntity).newInstance(entity);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -66,9 +65,8 @@ public class BaseService implements IService {
             entity.setFromRequest(request);
             entity.getBaseInfo().setCreatedBy(entity.getBaseInfo().getUpdatedBy());
 
-            IEntity newEntity = (IEntity) repository.save(entity);
-            IResponse response = classOfResponse.getDeclaredConstructor(classOfEntity).newInstance(newEntity);
-            return response;
+            IEntity newEntity = repository.save(entity);
+            return classOfResponse.getDeclaredConstructor(classOfEntity).newInstance(newEntity);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -83,9 +81,8 @@ public class BaseService implements IService {
             if (foundEntity.isPresent()) {
                 IEntity entity = foundEntity.get();
                 entity.setFromRequest(request);
-                IEntity savedEntity = (IEntity) repository.save(entity);
-                IResponse response = classOfResponse.getDeclaredConstructor(classOfEntity).newInstance(savedEntity);
-                return response;
+                IEntity savedEntity = repository.save(entity);
+                return classOfResponse.getDeclaredConstructor(classOfEntity).newInstance(savedEntity);
             } else
                 return null;
         }
@@ -107,12 +104,12 @@ public class BaseService implements IService {
                     String key = (String) entry.getKey();
                     Object value = entry.getValue();
                     try {
-                        Field fieldOfEntity = ReflectionUtils.findField(classOfEntity, (String) key);
+                        Field fieldOfEntity = ReflectionUtils.findField(classOfEntity, key);
                         if (fieldOfEntity != null) {
                             fieldOfEntity.setAccessible(true);
                             ReflectionUtils.setField(fieldOfEntity, foundEntity.get(), value);
                         } else {
-                            Field fieldOfBase = ReflectionUtils.findField(BaseInfo.class, (String) key);
+                            Field fieldOfBase = ReflectionUtils.findField(BaseInfo.class, key);
                             if (fieldOfBase != null) {
                                 fieldOfBase.setAccessible(true);
                                 ReflectionUtils.setField(fieldOfBase, foundEntity.get().getBaseInfo(), value);
@@ -124,9 +121,8 @@ public class BaseService implements IService {
                         System.out.println("Undefined Class Field : " + key);
                     }
                 }
-                IEntity savedEntity = (IEntity) repository.save(foundEntity.get());
-                IResponse response = classOfResponse.getDeclaredConstructor(classOfEntity).newInstance(savedEntity);
-                return response;
+                IEntity savedEntity = repository.save(foundEntity.get());
+                return classOfResponse.getDeclaredConstructor(classOfEntity).newInstance(savedEntity);
             } else
                 return null;
         }

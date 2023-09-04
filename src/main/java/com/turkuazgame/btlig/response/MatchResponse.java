@@ -18,8 +18,10 @@ public class MatchResponse extends BaseResponse implements IResponse{
     private Long weekId;
     private Long homeTeamId;
     private Long awayTeamId;
-    private short homeTeamScore;
-    private short awayTeamScore;
+    private short homeTeamHalfScore;
+    private short awayTeamHalfScore;
+    private short homeTeamFinalScore;
+    private short awayTeamFinalScore;
     private int rateListSize;
 
     public MatchResponse(Match match) {
@@ -30,8 +32,10 @@ public class MatchResponse extends BaseResponse implements IResponse{
         this.setWeekId(match.getWeek().getWeekId());
         this.setHomeTeamId(match.getHomeTeam().getTeamId());
         this.setAwayTeamId(match.getAwayTeam().getTeamId());
-        this.setHomeTeamScore(match.getHomeTeamScore());
-        this.setAwayTeamScore(match.getAwayTeamScore());
+        this.setHomeTeamHalfScore(match.getHomeTeamHalfScore());
+        this.setAwayTeamHalfScore(match.getAwayTeamHalfScore());
+        this.setHomeTeamFinalScore(match.getHomeTeamFinalScore());
+        this.setAwayTeamFinalScore(match.getAwayTeamFinalScore());
         this.setRateListSize(match.getRates().size());
 
         setBaseInfo(match.getBaseInfo());

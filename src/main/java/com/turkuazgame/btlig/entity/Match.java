@@ -32,25 +32,31 @@ public class Match implements IEntity {
     @Column(name="match_date")
     private Date matchDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "home_team_id", referencedColumnName = "team_id")
     private Team homeTeam;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "away_team_id", referencedColumnName = "team_id")
     private Team awayTeam;
 
-    @Column(name="home_team_score")
-    private short homeTeamScore;
+    @Column(name="home_team_half_score")
+    private short homeTeamHalfScore;
 
-    @Column(name="away_team_score")
-    private short awayTeamScore;
+    @Column(name="away_team__half_score")
+    private short awayTeamHalfScore;
+
+    @Column(name="home_team_final_score")
+    private short homeTeamFinalScore;
+
+    @Column(name="away_team_final_score")
+    private short awayTeamFinalScore;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="week_id", referencedColumnName = "week_id")
     private Week week;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "match_id")
     private List<MatchRate> rates = new ArrayList<MatchRate>();
 
@@ -69,8 +75,10 @@ public class Match implements IEntity {
         this.setMatchDate(newEntity.getMatchDate());
         this.setHomeTeam(newEntity.getHomeTeam());
         this.setAwayTeam(newEntity.getAwayTeam());
-        this.setHomeTeamScore(newEntity.getHomeTeamScore());
-        this.setAwayTeamScore(newEntity.getAwayTeamScore());
+        this.setHomeTeamHalfScore(newEntity.getHomeTeamHalfScore());
+        this.setAwayTeamHalfScore(newEntity.getAwayTeamHalfScore());
+        this.setHomeTeamFinalScore(newEntity.getHomeTeamFinalScore());
+        this.setAwayTeamFinalScore(newEntity.getAwayTeamFinalScore());
         this.setWeek(newEntity.getWeek());
         this.setRates(newEntity.getRates());
         newEntity.getBaseInfo().setCreatedBy(this.getBaseInfo().getCreatedBy());
@@ -89,8 +97,10 @@ public class Match implements IEntity {
             this.matchDate = sdf.parse(req.getMatchDate());
             this.homeTeam = req.getHomeTeam();
             this.awayTeam = req.getAwayTeam();
-            this.homeTeamScore = req.getHomeTeamScore();
-            this.awayTeamScore = req.getAwayTeamScore();
+            this.homeTeamHalfScore = req.getHomeTeamHalfScore();
+            this.awayTeamHalfScore = req.getAwayTeamHalfScore();
+            this.homeTeamFinalScore = req.getHomeTeamFinalScore();
+            this.awayTeamFinalScore = req.getAwayTeamFinalScore();
             this.baseInfo.setFromRequest(req);
         } catch (ParseException e) {
             e.printStackTrace();

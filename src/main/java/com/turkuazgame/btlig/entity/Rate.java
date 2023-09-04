@@ -16,15 +16,15 @@ public class Rate implements IEntity {
     @Column(name="rate_id")
     private Long rateId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rate_type_id", referencedColumnName = "rate_type_id")
-    private RateType rateType;
-
     @Column(name="rate_code", unique = true)
     private String rateCode;
 
     @Column(name="rate_name")
     private String rateName;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "rate_type_id", referencedColumnName = "rate_type_id")
+    private RateType rateType;
 
     @Embedded
     private BaseInfo baseInfo;

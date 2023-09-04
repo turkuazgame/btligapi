@@ -23,7 +23,7 @@ public class MatchRate implements IEntity {
     @JoinColumn(name="match_id", referencedColumnName = "match_id")
     private Match match;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "rate_id", referencedColumnName = "rate_id")
     private Rate rate;
 
