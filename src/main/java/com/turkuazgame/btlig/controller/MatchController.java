@@ -1,5 +1,6 @@
 package com.turkuazgame.btlig.controller;
 
+import com.turkuazgame.btlig.annotation.ExistsTeam;
 import com.turkuazgame.btlig.annotation.ExistsWeek;
 import com.turkuazgame.btlig.annotation.ExistsMatch;
 import com.turkuazgame.btlig.request.MatchRequest;
@@ -32,6 +33,19 @@ public class MatchController {
     @GetMapping("/{matchId}")
     public ResponseEntity<?> getMatch(@PathVariable @ExistsMatch Long matchId) {
         MatchResponse response = matchService.getMatch(matchId);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/code/{matchCode}")
+    public ResponseEntity<?> getMatchByCode(@PathVariable String matchCode){
+        MatchResponse response = matchService.getMatchByCode(matchCode);
+        return ResponseEntity.ok(response);
+    }
+
+    // teamType{H-->Home, A-->Away, B-->Both}
+    @GetMapping("/team/{teamId}")
+    public ResponseEntity<?> getMatchsByTeam(@PathVariable @ExistsTeam Long teamId, @RequestParam Optional<String> teamType){
+        List<MatchResponse> response = matchService.getMatchsByTeam(teamId, teamType);
         return ResponseEntity.ok(response);
     }
 

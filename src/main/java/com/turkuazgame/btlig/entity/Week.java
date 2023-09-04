@@ -1,7 +1,6 @@
 package com.turkuazgame.btlig.entity;
 
 import com.turkuazgame.btlig.request.IRequest;
-import com.turkuazgame.btlig.request.SeasonRequest;
 import com.turkuazgame.btlig.request.WeekRequest;
 import jakarta.persistence.*;
 import lombok.*;

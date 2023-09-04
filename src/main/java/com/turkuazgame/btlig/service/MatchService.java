@@ -101,4 +101,57 @@ public class MatchService {
             return null;
     }
 
+    public MatchResponse getMatchByCode(String matchCode) {
+        if(matchCode!=null && !matchCode.equals("")) {
+            List<Match> list = matchRepository.findByMatchCode(matchCode);
+            Match match = !list.isEmpty() ? list.get(0) : null;
+            return match!=null ? new MatchResponse(match) : null;
+        } else
+            return null;
+    }
+
+    // teamType{H-->Home, A-->Away, B-->Both}
+    public List<MatchResponse> getMatchsByTeam(Long teamId, Optional<String> teamType) {
+        List<Match> list;
+        if(teamType.isPresent()) {
+            if(teamType.get().equals("B")) {
+                Team homeTeam = teamRepository.findById(teamId).orElse(null);
+                List<Match> homeList = homeTeam!=null ? matchRepository.findByHomeTeam(homeTeam) : null;
+                Team awayTeam = teamRepository.findById(teamId).orElse(null);
+                List<Match> awayList = awayTeam!=null ? matchRepository.findByAwayTeam(awayTeam) : null;
+                if(homeList!=null && awayList!=null)
+                    homeList.addAll(awayList);
+                list = homeList;
+            }
+            else if(teamType.get().equals("H")) {
+                Team homeTeam = teamRepository.findById(teamId).orElse(null);
+                list = homeTeam!=null ? matchRepository.findByHomeTeam(homeTeam) : null;
+            }
+            else if(teamType.get().equals("A")) {
+                Team awayTeam = teamRepository.findById(teamId).orElse(null);
+                list = awayTeam!=null ? matchRepository.findByAwayTeam(awayTeam) : null;
+            }
+            else
+                return null;
+        } else {
+            Team homeTeam = teamRepository.findById(teamId).orElse(null);
+            List<Match> homeList = homeTeam!=null ? matchRepository.findByHomeTeam(homeTeam) : null;
+            Team awayTeam = teamRepository.findById(teamId).orElse(null);
+            List<Match> awayList = awayTeam!=null ? matchRepository.findByAwayTeam(awayTeam) : null;
+            if(homeList!=null && awayList!=null)
+                homeList.addAll(awayList);
+            list = homeList;
+        }
+
+        List<MatchResponse> responseList = new ArrayList<>();
+        if(list!=null) {
+            for (Match match : list) {
+                MatchResponse response = new MatchResponse(match);
+                responseList.add(response);
+            }
+            return responseList;
+        }
+        else
+            return null;
+    }
 }
