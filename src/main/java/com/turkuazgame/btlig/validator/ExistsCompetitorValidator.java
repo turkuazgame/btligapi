@@ -15,9 +15,6 @@ public class ExistsCompetitorValidator implements ConstraintValidator<ExistsComp
     @Override
     public boolean isValid(Long competitorId, ConstraintValidatorContext context) {
         Competitor competitor = competitorRepository.findById(competitorId).orElse(null);
-        if(competitor != null) {
-            return true;
-        }
-        return false;
+        return competitor!=null ? true : false;
     }
 }

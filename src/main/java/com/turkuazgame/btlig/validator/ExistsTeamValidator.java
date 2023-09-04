@@ -15,9 +15,6 @@ public class ExistsTeamValidator implements ConstraintValidator<ExistsTeam, Long
     @Override
     public boolean isValid(Long teamId, ConstraintValidatorContext context) {
         Team team = teamRepository.findById(teamId).orElse(null);
-        if(team != null) {
-            return true;
-        }
-        return false;
+        return team!=null ? true : false;
     }
 }

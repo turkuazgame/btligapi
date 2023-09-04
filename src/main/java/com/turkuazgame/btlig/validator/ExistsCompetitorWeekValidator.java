@@ -15,9 +15,6 @@ public class ExistsCompetitorWeekValidator implements ConstraintValidator<Exists
     @Override
     public boolean isValid(Long competitorWeekId, ConstraintValidatorContext context) {
         CompetitorWeek competitorWeek = competitorWeekRepository.findById(competitorWeekId).orElse(null);
-        if(competitorWeek != null) {
-            return true;
-        }
-        return false;
+        return competitorWeek!=null ? true : false;
     }
 }

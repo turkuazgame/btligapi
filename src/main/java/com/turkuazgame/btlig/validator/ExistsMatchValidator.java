@@ -15,9 +15,6 @@ public class ExistsMatchValidator implements ConstraintValidator<ExistsMatch, Lo
     @Override
     public boolean isValid(Long matchId, ConstraintValidatorContext context) {
         Match match = matchRepository.findById(matchId).orElse(null);
-        if(match != null) {
-            return true;
-        }
-        return false;
+        return match!=null ? true : false;
     }
 }

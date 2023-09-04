@@ -15,9 +15,6 @@ public class ExistsWeekValidator implements ConstraintValidator<ExistsWeek, Long
     @Override
     public boolean isValid(Long seasonWeekId, ConstraintValidatorContext context) {
         Week week = weekRepository.findById(seasonWeekId).orElse(null);
-        if(week != null) {
-            return true;
-        }
-        return false;
+        return week!=null ? true : false;
     }
 }

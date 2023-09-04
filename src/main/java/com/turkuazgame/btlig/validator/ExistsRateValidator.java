@@ -15,9 +15,6 @@ public class ExistsRateValidator implements ConstraintValidator<ExistsRate, Long
     @Override
     public boolean isValid(Long rateId, ConstraintValidatorContext context) {
         Rate rate = rateRepository.findById(rateId).orElse(null);
-        if(rate != null) {
-            return true;
-        }
-        return false;
+        return rate!=null ? true : false;
     }
 }

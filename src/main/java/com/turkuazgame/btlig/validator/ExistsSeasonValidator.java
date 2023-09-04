@@ -15,9 +15,6 @@ public class ExistsSeasonValidator implements ConstraintValidator<ExistsSeason, 
     @Override
     public boolean isValid(Long seasonId, ConstraintValidatorContext context) {
         Season season = seasonRepository.findById(seasonId).orElse(null);
-        if(season != null) {
-            return true;
-        }
-        return false;
+        return season!=null ? true : false;
     }
 }

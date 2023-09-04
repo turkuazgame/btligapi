@@ -13,10 +13,7 @@ public class ExistsFirebaseUserValidator implements ConstraintValidator<ExistsFi
     public boolean isValid(String userUID, ConstraintValidatorContext context) {
         try {
             UserRecord userRecord = FirebaseAuth.getInstance().getUser(userUID);
-            if(userRecord != null) {
-                return true;
-            }
-            return false;
+            return userRecord!=null ? true : false;
         } catch (FirebaseAuthException e) {
             return false;
         }

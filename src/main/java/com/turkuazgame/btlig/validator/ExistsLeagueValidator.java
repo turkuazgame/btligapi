@@ -15,9 +15,6 @@ public class ExistsLeagueValidator implements ConstraintValidator<ExistsLeague, 
     @Override
     public boolean isValid(Long leagueId, ConstraintValidatorContext context) {
         League league = leagueRepository.findById(leagueId).orElse(null);
-        if(league != null) {
-            return true;
-        }
-        return false;
+        return league!=null ? true : false;
     }
 }
