@@ -1,7 +1,7 @@
 package com.turkuazgame.btlig.entity;
 
+import com.turkuazgame.btlig.request.CompetitorMatchRequest;
 import com.turkuazgame.btlig.request.IRequest;
-import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class CompetitorMatch implements IEntity{
     private Match match;
 
     @OneToMany
-    @JoinColumn(name = "competitor_week_match_id")
+    @JoinColumn(name = "competitor_rate_id")
     private List<CompetitorRate> rates = new ArrayList<CompetitorRate>();
 
     @Embedded
@@ -47,7 +47,11 @@ public class CompetitorMatch implements IEntity{
 
     @Override
     public void setFromRequest(IRequest request) {
-
+        CompetitorMatchRequest req = (CompetitorMatchRequest) request;
+        this.competitorMatchId = req.getCompetitorMatchId();
+        this.competitorWeek = req.getCompetitorWeek();
+        this.match = req.getMatch();
+        this.baseInfo.setFromRequest(req);
     }
 
 }
