@@ -1,6 +1,8 @@
 package com.turkuazgame.btlig.entity;
 
+import com.turkuazgame.btlig.request.CompetitorWeekRequest;
 import com.turkuazgame.btlig.request.IRequest;
+import com.turkuazgame.btlig.request.MatchRateRequest;
 import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -47,7 +49,12 @@ public class MatchRate implements IEntity {
 
     @Override
     public void setFromRequest(IRequest request) {
-
+        MatchRateRequest req = (MatchRateRequest) request;
+        this.matchRateId = req.getMatchRateId();
+        this.match = req.getMatch();
+        this.rate = req.getRate();
+        this.rateValue = req.getRateValue();
+        this.baseInfo.setFromRequest(req);
     }
 
 }

@@ -1,6 +1,8 @@
 package com.turkuazgame.btlig.entity;
 
+import com.turkuazgame.btlig.request.CompetitorRateRequest;
 import com.turkuazgame.btlig.request.IRequest;
+import com.turkuazgame.btlig.request.MatchRateRequest;
 import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -25,12 +27,6 @@ public class CompetitorRate implements IEntity {
     @JoinColumn(name = "match_rate_id", referencedColumnName = "match_rate_id")
     private MatchRate matchRate;
 
-    @Column(name="rate_value")
-    private double rateValue;
-
-    @Column(name="rateRealFlag")
-    private boolean rateRealFlag;
-
     @Embedded
     private BaseInfo baseInfo;
 
@@ -39,15 +35,17 @@ public class CompetitorRate implements IEntity {
         CompetitorRate newEntity = (CompetitorRate) other;
         this.setCompetitorMatch(newEntity.getCompetitorMatch());
         this.setMatchRate(newEntity.getMatchRate());
-        this.setRateValue(newEntity.getRateValue());
-        this.setRateRealFlag(newEntity.isRateRealFlag());
         newEntity.getBaseInfo().setCreatedBy(this.getBaseInfo().getCreatedBy());
         this.setBaseInfo(newEntity.getBaseInfo());
     }
 
     @Override
     public void setFromRequest(IRequest request) {
-
+        CompetitorRateRequest req = (CompetitorRateRequest) request;
+        this.competitorRateId = req.getCompetitorRateId();
+        this.competitorMatch = req.getCompetitorMatch();
+        this.matchRate = req.getMatchRate();
+        this.baseInfo.setFromRequest(req);
     }
 
 }
