@@ -14,12 +14,16 @@ public class RateResponse extends BaseResponse implements IResponse{
     private String rateCode;
     private String rateName;
     private Long rateTypeId;
+    private String firstValue;
+    private String secondValue;
 
     public RateResponse(Rate rate) {
         this.setRateId(rate.getRateId());
         this.setRateCode(rate.getRateCode());
         this.setRateName(rate.getRateName());
         this.setRateTypeId(rate.getRateType().getRateTypeId());
+        this.setFirstValue(rate.getFirstValue());
+        this.setSecondValue(rate.getSecondValue());
 
         setBaseInfo(rate.getBaseInfo());
     }

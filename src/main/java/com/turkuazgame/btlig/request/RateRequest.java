@@ -23,6 +23,12 @@ public class RateRequest extends BaseRequest implements IRequest {
     @NotEmpty
     @ExistsRateType
     private Long rateTypeId;
+    @NotNull
+    @NotEmpty
+    private String firstValue;
+    @NotNull
+    @NotEmpty
+    private String secondValue;
 
     @JsonIgnore
     private RateType rateType;

@@ -19,7 +19,7 @@ public class MatchRate implements IEntity {
     @Column(name="match_rate_id")
     private Long matchRateId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="match_id", referencedColumnName = "match_id")
     private Match match;
 
@@ -30,7 +30,7 @@ public class MatchRate implements IEntity {
     @Column(name="rate_value")
     private double rateValue;
 
-    @Column(name="rateRealFlag")
+    @Column(name="rate_real_flag")
     private boolean rateRealFlag;
 
     @Embedded

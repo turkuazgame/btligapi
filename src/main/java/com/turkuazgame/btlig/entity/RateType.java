@@ -2,7 +2,6 @@ package com.turkuazgame.btlig.entity;
 
 import com.turkuazgame.btlig.request.IRequest;
 import com.turkuazgame.btlig.request.RateTypeRequest;
-import com.turkuazgame.btlig.response.IResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +22,15 @@ public class RateType implements IEntity {
     @Column(name="rate_type_name")
     private String rateTypeName;
 
+    @Column(name="result_subject")
+    private ResultSubject resultSubject;
+
+    @Column(name="result_period")
+    private ResultPeriod resultPeriod;
+
+    @Column(name="result_action")
+    private ResultAction resultAction;
+
     @Embedded
     private BaseInfo baseInfo;
 
@@ -31,6 +39,9 @@ public class RateType implements IEntity {
         RateType newEntity = (RateType) other;
         this.setRateTypeCode(newEntity.getRateTypeCode());
         this.setRateTypeName(newEntity.getRateTypeName());
+        this.setResultSubject(newEntity.getResultSubject());
+        this.setResultPeriod(newEntity.getResultPeriod());
+        this.setResultAction(newEntity.getResultAction());
         newEntity.getBaseInfo().setCreatedBy(this.getBaseInfo().getCreatedBy());
         this.setBaseInfo(newEntity.getBaseInfo());
     }
@@ -41,6 +52,10 @@ public class RateType implements IEntity {
         this.rateTypeId = req.getRateTypeId();
         this.rateTypeCode = req.getRateTypeCode();
         this.rateTypeName = req.getRateTypeName();
+        this.resultSubject = ResultSubject.valueOf(req.getResultSubject());
+        this.resultPeriod = ResultPeriod.valueOf(req.getResultPeriod());
+        this.resultAction = ResultAction.valueOf(req.getResultAction());
+
         this.baseInfo.setFromRequest(req);
     }
 
@@ -72,10 +87,10 @@ FINAL UP/DOWN	 		UPDOWN_FINAL_25_UP
 						UPDOWN_FINAL_25_DOWN
 
 TOTAL_SCORE :
-TOTAL SCORE 			TOTAL_SCORE_01
-						TOTAL_SCORE_23
-						TOTAL_SCORE_45
-						TOTAL_SCORE_6P
+TOTAL SCORE 			TOTAL_SCORE_0_1
+						TOTAL_SCORE_2_3
+						TOTAL_SCORE_4_5
+						TOTAL_SCORE_6_100
 
 RECIPROCAL_SCORE :
 RECIPROCAL_SCORE		RECIPROCAL_SCORE_YES

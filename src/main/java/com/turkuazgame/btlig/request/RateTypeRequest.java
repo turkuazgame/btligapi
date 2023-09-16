@@ -1,6 +1,8 @@
 package com.turkuazgame.btlig.request;
 
-import com.turkuazgame.btlig.annotation.ExistsNation;
+import com.turkuazgame.btlig.annotation.ExistsResultAction;
+import com.turkuazgame.btlig.annotation.ExistsResultPeriod;
+import com.turkuazgame.btlig.annotation.ExistsResultSubject;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -19,8 +21,16 @@ public class RateTypeRequest extends BaseRequest implements IRequest {
     private String rateTypeName;
     @NotNull
     @NotEmpty
-    @ExistsNation
-    private String rateTypeNation;
+    @ExistsResultSubject
+    private String resultSubject;
+    @NotNull
+    @NotEmpty
+    @ExistsResultPeriod
+    private String resultPeriod;
+    @NotNull
+    @NotEmpty
+    @ExistsResultAction
+    private String resultAction;
 
     @Override
     public void setId(Long id) {
