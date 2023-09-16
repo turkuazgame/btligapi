@@ -170,7 +170,7 @@ public class MatchRateService {
         }
         else if(matchRate.getRate().getRateType().getResultSubject().equals(ResultSubject.SCORE)) {
             if(resultAction.equals(ResultAction.UPDOWN)) {
-                double updown = Double.valueOf(matchRate.getRate().getFirstValue().substring(0,1)+"."+matchRate.getRate().getFirstValue().substring(1));
+                double updown = Double.parseDouble(matchRate.getRate().getFirstValue().charAt(0)+"."+matchRate.getRate().getFirstValue().substring(1));
                 if(resultPeriod.equals(ResultPeriod.HALF)) {
                     double halfTotalScore = match.getHomeTeamHalfScore()+match.getAwayTeamHalfScore();
                     if(matchRate.getRate().getSecondValue().equals("UP"))
@@ -191,8 +191,8 @@ public class MatchRateService {
                 }
             }
             else if(resultAction.equals(ResultAction.TOTAL)) {
-                short startScore = Short.valueOf(matchRate.getRate().getFirstValue());
-                short endScore = Short.valueOf(matchRate.getRate().getSecondValue());
+                short startScore = Short.parseShort(matchRate.getRate().getFirstValue());
+                short endScore = Short.parseShort(matchRate.getRate().getSecondValue());
                 if(resultPeriod.equals(ResultPeriod.HALF)) {
                     short halfTotalScore = (short) (match.getHomeTeamHalfScore()+match.getAwayTeamHalfScore());
                     return halfTotalScore >= startScore && halfTotalScore <= endScore;
@@ -203,7 +203,7 @@ public class MatchRateService {
                 }
             }
             else if(resultAction.equals(ResultAction.RECIPROCAL)) {
-                boolean reciprocalFlag = Boolean.valueOf(matchRate.getRate().getFirstValue());
+                boolean reciprocalFlag = Boolean.parseBoolean(matchRate.getRate().getFirstValue());
                 if(resultPeriod.equals(ResultPeriod.HALF))
                     return reciprocalFlag && match.getHomeTeamHalfScore() > 0 && match.getAwayTeamHalfScore() > 0;
                 else if(resultPeriod.equals(ResultPeriod.FINAL))
