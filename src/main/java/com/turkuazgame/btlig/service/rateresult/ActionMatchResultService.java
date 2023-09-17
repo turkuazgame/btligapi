@@ -49,6 +49,6 @@ public class ActionMatchResultService implements  IActionService {
             return halfResult && finalResult;
         }
         else
-            throw new IllegalArgumentException("Unknown Rate Result Period " + matchRate.getRate().getRateType().getResultPeriod().toString());
+            throw new IllegalArgumentException("Unknown Rate Result Period : " + matchRate.getRate().getRateType().getResultPeriod().toString());
     }
 }

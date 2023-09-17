@@ -19,7 +19,7 @@ public class ActionServiceFactory {
             return new ActionScoreReciprocalService(matchRate);
         }
         else
-            throw new IllegalArgumentException("Unknown Rate Result Action " + matchRate.getRate().getRateType().getResultAction().toString());
+            throw new IllegalArgumentException("Unknown Rate Result Action : " + matchRate.getRate().getRateType().getResultAction().toString());
     }
 
 }

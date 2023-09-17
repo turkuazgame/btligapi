@@ -16,7 +16,7 @@ public class ActionScoreUpdownService implements IActionService {
     public boolean calculate() {
         ResultPeriod resultPeriod = matchRate.getRate().getRateType().getResultPeriod();
         Match match = matchRate.getMatch();
-        double updown = Double.parseDouble(matchRate.getRate().getFirstValue().charAt(0)+"."+matchRate.getRate().getFirstValue().substring(1));
+        double updown = Double.parseDouble(matchRate.getRate().getFirstValue().charAt(0)+"."+matchRate.getRate().getFirstValue().charAt(1));
 
         if(resultPeriod.equals(ResultPeriod.HALF)) {
             double halfTotalScore = match.getHomeTeamHalfScore()+match.getAwayTeamHalfScore();
@@ -37,6 +37,6 @@ public class ActionScoreUpdownService implements IActionService {
                 return false;
         }
         else
-            throw new IllegalArgumentException("Unknown Rate Result Period " + matchRate.getRate().getRateType().getResultPeriod().toString());
+            throw new IllegalArgumentException("Unknown Rate Result Period : " + matchRate.getRate().getRateType().getResultPeriod().toString());
     }
 }

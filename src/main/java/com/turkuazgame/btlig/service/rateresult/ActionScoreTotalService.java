@@ -28,6 +28,6 @@ public class ActionScoreTotalService implements IActionService {
             return finalTotalScore >= startScore && finalTotalScore <= endScore;
         }
         else
-            throw new IllegalArgumentException("Unknown Rate Result Period " + matchRate.getRate().getRateType().getResultPeriod().toString());
+            throw new IllegalArgumentException("Unknown Rate Result Period : " + matchRate.getRate().getRateType().getResultPeriod().toString());
     }
 }

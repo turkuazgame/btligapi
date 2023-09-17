@@ -23,6 +23,6 @@ public class ActionScoreReciprocalService implements IActionService {
         else if(resultPeriod.equals(ResultPeriod.FINAL))
             return reciprocalFlag && match.getHomeTeamFinalScore() > 0 && match.getAwayTeamFinalScore() > 0;
         else
-            throw new IllegalArgumentException("Unknown Rate Result Period " + matchRate.getRate().getRateType().getResultPeriod().toString());
+            throw new IllegalArgumentException("Unknown Rate Result Period : " + matchRate.getRate().getRateType().getResultPeriod().toString());
     }
 }
