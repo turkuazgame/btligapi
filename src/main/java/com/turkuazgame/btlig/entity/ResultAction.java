@@ -2,8 +2,8 @@ package com.turkuazgame.btlig.entity;
 
 public enum ResultAction {
 
-    RESULT,
-    UPDOWN,
-    TOTAL,
-    RECIPROCAL
+    MATCH_RESULT,
+    SCORE_UPDOWN,
+    SCORE_TOTAL,
+    SCORE_RECIPROCAL
 }

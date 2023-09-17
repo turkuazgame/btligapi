@@ -22,14 +22,11 @@ public class RateType implements IEntity {
     @Column(name="rate_type_name")
     private String rateTypeName;
 
-    @Column(name="result_subject")
-    private ResultSubject resultSubject;
+    @Column(name="result_action")
+    private ResultAction resultAction;
 
     @Column(name="result_period")
     private ResultPeriod resultPeriod;
-
-    @Column(name="result_action")
-    private ResultAction resultAction;
 
     @Embedded
     private BaseInfo baseInfo;
@@ -39,9 +36,8 @@ public class RateType implements IEntity {
         RateType newEntity = (RateType) other;
         this.setRateTypeCode(newEntity.getRateTypeCode());
         this.setRateTypeName(newEntity.getRateTypeName());
-        this.setResultSubject(newEntity.getResultSubject());
-        this.setResultPeriod(newEntity.getResultPeriod());
         this.setResultAction(newEntity.getResultAction());
+        this.setResultPeriod(newEntity.getResultPeriod());
         newEntity.getBaseInfo().setCreatedBy(this.getBaseInfo().getCreatedBy());
         this.setBaseInfo(newEntity.getBaseInfo());
     }
@@ -52,9 +48,8 @@ public class RateType implements IEntity {
         this.rateTypeId = req.getRateTypeId();
         this.rateTypeCode = req.getRateTypeCode();
         this.rateTypeName = req.getRateTypeName();
-        this.resultSubject = ResultSubject.valueOf(req.getResultSubject());
-        this.resultPeriod = ResultPeriod.valueOf(req.getResultPeriod());
         this.resultAction = ResultAction.valueOf(req.getResultAction());
+        this.resultPeriod = ResultPeriod.valueOf(req.getResultPeriod());
 
         this.baseInfo.setFromRequest(req);
     }
@@ -95,5 +90,10 @@ TOTAL SCORE 			TOTAL_SCORE_0_1
 RECIPROCAL_SCORE :
 RECIPROCAL_SCORE		RECIPROCAL_SCORE_YES
 						RECIPROCAL_SCORE_NO
+
+MATCH_RESULT
+SCORE_UPDOWN
+SCORE_TOTAL
+SCORE_RECIPROCAL
 */
 }

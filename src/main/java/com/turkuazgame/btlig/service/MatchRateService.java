@@ -5,6 +5,8 @@ import com.turkuazgame.btlig.repository.*;
 import com.turkuazgame.btlig.request.MatchRateRequest;
 import com.turkuazgame.btlig.response.MatchRateResponse;
 import com.turkuazgame.btlig.response.IResponse;
+import com.turkuazgame.btlig.service.rateresult.ActionServiceFactory;
+import com.turkuazgame.btlig.service.rateresult.IActionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -138,82 +140,9 @@ public class MatchRateService {
     }
 
     public boolean calculateRateRealization(MatchRate matchRate) {
-
-        ResultSubject resultSubject = matchRate.getRate().getRateType().getResultSubject();
-        ResultPeriod resultPeriod = matchRate.getRate().getRateType().getResultPeriod();
-        ResultAction resultAction = matchRate.getRate().getRateType().getResultAction();
-        Match match = matchRate.getMatch();
-
-        if(resultSubject.equals(ResultSubject.WIN)) {
-            if(resultAction.equals(ResultAction.RESULT)) {
-                if(resultPeriod.equals(ResultPeriod.HALF)) {
-                    return switch (matchRate.getRate().getFirstValue()) {
-                        case "1" -> match.getHomeTeamHalfScore() > match.getAwayTeamHalfScore();
-                        case "2" -> match.getAwayTeamHalfScore() > match.getHomeTeamHalfScore();
-                        case "0" -> match.getHomeTeamHalfScore() == match.getAwayTeamHalfScore();
-                        default -> false;
-                    };
-                }
-                else if(resultPeriod.equals(ResultPeriod.FINAL)) {
-                    return switch (matchRate.getRate().getFirstValue()) {
-                        case "1" -> match.getHomeTeamFinalScore() > match.getAwayTeamFinalScore();
-                        case "2" -> match.getAwayTeamFinalScore() > match.getHomeTeamFinalScore();
-                        case "0" -> match.getHomeTeamFinalScore() == match.getAwayTeamFinalScore();
-                        default -> false;
-                    };
-                }
-                else
-                    return false;
-            }
-            else
-                return false;
-        }
-        else if(matchRate.getRate().getRateType().getResultSubject().equals(ResultSubject.SCORE)) {
-            if(resultAction.equals(ResultAction.UPDOWN)) {
-                double updown = Double.parseDouble(matchRate.getRate().getFirstValue().charAt(0)+"."+matchRate.getRate().getFirstValue().substring(1));
-                if(resultPeriod.equals(ResultPeriod.HALF)) {
-                    double halfTotalScore = match.getHomeTeamHalfScore()+match.getAwayTeamHalfScore();
-                    if(matchRate.getRate().getSecondValue().equals("UP"))
-                        return halfTotalScore > updown;
-                    else if(matchRate.getRate().getSecondValue().equals("DOWN"))
-                        return halfTotalScore < updown;
-                    else
-                        return false;
-                }
-                else if(resultPeriod.equals(ResultPeriod.FINAL)) {
-                    double finalTotalScore = match.getHomeTeamFinalScore()+match.getAwayTeamFinalScore();
-                    if(matchRate.getRate().getSecondValue().equals("UP"))
-                        return finalTotalScore > updown;
-                    else if(matchRate.getRate().getSecondValue().equals("DOWN"))
-                        return finalTotalScore < updown;
-                    else
-                        return false;
-                }
-            }
-            else if(resultAction.equals(ResultAction.TOTAL)) {
-                short startScore = Short.parseShort(matchRate.getRate().getFirstValue());
-                short endScore = Short.parseShort(matchRate.getRate().getSecondValue());
-                if(resultPeriod.equals(ResultPeriod.HALF)) {
-                    short halfTotalScore = (short) (match.getHomeTeamHalfScore()+match.getAwayTeamHalfScore());
-                    return halfTotalScore >= startScore && halfTotalScore <= endScore;
-                }
-                else if(resultPeriod.equals(ResultPeriod.FINAL)) {
-                    short finalTotalScore = (short) (match.getHomeTeamFinalScore()+match.getAwayTeamFinalScore());
-                    return finalTotalScore >= startScore && finalTotalScore <= endScore;
-                }
-            }
-            else if(resultAction.equals(ResultAction.RECIPROCAL)) {
-                boolean reciprocalFlag = Boolean.parseBoolean(matchRate.getRate().getFirstValue());
-                if(resultPeriod.equals(ResultPeriod.HALF))
-                    return reciprocalFlag && match.getHomeTeamHalfScore() > 0 && match.getAwayTeamHalfScore() > 0;
-                else if(resultPeriod.equals(ResultPeriod.FINAL))
-                    return reciprocalFlag && match.getHomeTeamFinalScore() > 0 && match.getAwayTeamFinalScore() > 0;
-            }
-            else
-                return false;
-        }
-
-        return false;
+        ActionServiceFactory actionServiceFactory = new ActionServiceFactory();
+        IActionService actionService = actionServiceFactory.createActionService(matchRate);
+        return actionService.calculate();
     }
 
 }
