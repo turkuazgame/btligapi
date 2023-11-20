@@ -28,10 +28,10 @@ public class Rate implements IEntity {
     @JoinColumn(name = "rate_type_id", referencedColumnName = "rate_type_id")
     private RateType rateType;
 
-    @Column(name="first_value")
+    @Column(name="first_result_value")
     private String firstValue;
 
-    @Column(name="second_value")
+    @Column(name="second_result_value")
     private String secondValue;
 
     @Embedded

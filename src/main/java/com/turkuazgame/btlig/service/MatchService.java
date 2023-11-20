@@ -1,5 +1,6 @@
 package com.turkuazgame.btlig.service;
 
+import com.turkuazgame.btlig.entity.MatchRate;
 import com.turkuazgame.btlig.entity.Team;
 import com.turkuazgame.btlig.entity.Week;
 import com.turkuazgame.btlig.entity.Match;
@@ -12,6 +13,8 @@ import com.turkuazgame.btlig.response.MatchResponse;
 import com.turkuazgame.btlig.response.IResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 
 @Service
@@ -21,6 +24,9 @@ public class MatchService {
     WeekRepository weekRepository;
     TeamRepository teamRepository;
     BaseService service;
+
+    @Autowired
+    MatchRateService matchRateService;
 
     @Autowired
     public MatchService(MatchRepository matchRepository, WeekRepository weekRepository, TeamRepository teamRepository) {
@@ -154,4 +160,23 @@ public class MatchService {
         else
             return null;
     }
+
+    @Transactional
+    public MatchResponse updateMatchScore(Long matchId, short homeTeamHalfScore, short awayTeamHalfScore, short homeTeamFinalScore, short awayTeamFinalScore) {
+
+        matchRepository.updateMatchScoreById(matchId, homeTeamHalfScore, awayTeamHalfScore, homeTeamFinalScore, awayTeamFinalScore);
+
+        Optional<Match> matchOptional = matchRepository.findById(matchId);
+        Match match = matchOptional.get();
+        match.setHomeTeamHalfScore(homeTeamHalfScore);
+        match.setAwayTeamHalfScore(awayTeamHalfScore);
+        match.setHomeTeamFinalScore(homeTeamFinalScore);
+        match.setAwayTeamFinalScore(awayTeamFinalScore);
+        for(MatchRate matchRate : match.getRates()) {
+            matchRateService.updateMatchRateRealization(matchRate);
+        }
+
+        return (MatchResponse) service.getEntity(matchId);
+    }
+
 }

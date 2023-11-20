@@ -1,5 +1,6 @@
 package com.turkuazgame.btlig.service;
 
+import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.turkuazgame.btlig.entity.*;
 import com.turkuazgame.btlig.repository.*;
 import com.turkuazgame.btlig.request.MatchRateRequest;
@@ -21,8 +22,9 @@ public class MatchRateService {
 
     @Autowired
     public MatchRateService(MatchRateRepository matchRateRepository,
-                                 MatchRepository matchRepository,
-                                 RateRepository rateRepository) {
+                            MatchRepository matchRepository,
+                            RateRepository rateRepository)
+    {
         this.matchRateRepository = matchRateRepository;
         this.matchRepository = matchRepository;
         this.rateRepository = rateRepository;
@@ -137,6 +139,14 @@ public class MatchRateService {
                 return null;
         } else
             return null;
+    }
+
+    public void updateMatchRateRealization(MatchRate matchRate) {
+        boolean rateRealFlag = calculateRateRealization(matchRate);
+        matchRateRepository.updateRateRealFlagById(matchRate.getMatchRateId(), rateRealFlag);
+//        HashMap<Object,Object> fields = new HashMap<>();
+//        fields.put("rateRealFlag",rateRealFlag);
+//        mergeMatchRate(matchRate.getMatchRateId(), fields);
     }
 
     public boolean calculateRateRealization(MatchRate matchRate) {
