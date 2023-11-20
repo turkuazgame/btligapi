@@ -23,9 +23,11 @@ public class RateType implements IEntity {
     private String rateTypeName;
 
     @Column(name="result_action")
+    @Enumerated(EnumType.STRING)
     private ResultAction resultAction;
 
     @Column(name="result_period")
+    @Enumerated(EnumType.STRING)
     private ResultPeriod resultPeriod;
 
     @Embedded

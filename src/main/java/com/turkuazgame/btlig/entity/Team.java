@@ -23,6 +23,7 @@ public class Team implements IEntity {
     private String teamName;
 
     @Column(name="team_nation")
+    @Enumerated(EnumType.STRING)
     private Nation teamNation;
 
     @ManyToOne(cascade = CascadeType.ALL)

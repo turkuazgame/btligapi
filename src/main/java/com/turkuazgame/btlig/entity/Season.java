@@ -29,6 +29,7 @@ public class Season implements IEntity {
     private String seasonName;
 
     @Column(name="season_type")
+    @Enumerated(EnumType.STRING)
     private SeasonType seasonType;
 
     @Column(name="start_date")

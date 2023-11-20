@@ -27,6 +27,7 @@ public class League implements IEntity {
     private String leagueName;
 
     @Column(name="league_nation")
+    @Enumerated(EnumType.STRING)
     private Nation leagueNation;
 
     @OneToMany
